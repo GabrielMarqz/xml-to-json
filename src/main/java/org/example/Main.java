@@ -39,6 +39,17 @@ public class Main {
                 documento.setNumero(eElement.getElementsByTagName("nCT").item(temp).getTextContent());
                 documento.setSerie(eElement.getElementsByTagName("cCT").item(temp).getTextContent());
                 documento.setTipoServico(eElement.getElementsByTagName("tpServ").item(temp).getTextContent());
+                documento.setDataEmissao(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent());
+                documento.setTipoCte(eElement.getElementsByTagName("tpCTe").item(temp).getTextContent());
+                documento.setIbgeInicioOperacao(eElement.getElementsByTagName("cMunIni").item(temp).getTextContent());
+                documento.setCidadeInicioOperacao(eElement.getElementsByTagName("xMunIni").item(temp).getTextContent());
+                documento.setUfInicioOperacao(eElement.getElementsByTagName("UFIni").item(temp).getTextContent());
+                documento.setIbgeFimOperacao(eElement.getElementsByTagName("cMunFim").item(temp).getTextContent());
+                documento.cidadeFimOperacao(eElement.getElementsByTagName("xMunFim").item(temp).getTextContent());
+                documento.ufFimOperacao(eElement.getElementsByTagName("UFFim").item(temp).getTextContent());
+                documento.cfop(eElement.getElementsByTagName("CFOP").item(temp).getTextContent());
+                documento.modal(eElement.getElementsByTagName("modal").item(temp).getTextContent());
+
             }
         }
     }
@@ -46,5 +57,6 @@ public class Main {
     private static void lerElementosInfCte(Document doc, Documento root) {
         NodeList ides = doc.getElementsByTagName("ide");
         lerElementosIde(ides, root);
+
     }
 }
