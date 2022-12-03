@@ -45,10 +45,10 @@ public class Main {
                 documento.setCidadeInicioOperacao(eElement.getElementsByTagName("xMunIni").item(temp).getTextContent());
                 documento.setUfInicioOperacao(eElement.getElementsByTagName("UFIni").item(temp).getTextContent());
                 documento.setIbgeFimOperacao(eElement.getElementsByTagName("cMunFim").item(temp).getTextContent());
-                documento.cidadeFimOperacao(eElement.getElementsByTagName("xMunFim").item(temp).getTextContent());
-                documento.ufFimOperacao(eElement.getElementsByTagName("UFFim").item(temp).getTextContent());
-                documento.cfop(eElement.getElementsByTagName("CFOP").item(temp).getTextContent());
-                documento.modal(eElement.getElementsByTagName("modal").item(temp).getTextContent());
+                documento.setCidadeFimOperacao(eElement.getElementsByTagName("xMunFim").item(temp).getTextContent());
+                documento.setUfFimOperacao(eElement.getElementsByTagName("UFFim").item(temp).getTextContent());
+                documento.setCfop(eElement.getElementsByTagName("CFOP").item(temp).getTextContent());
+                documento.setModal(eElement.getElementsByTagName("modal").item(temp).getTextContent());
 
             }
         }
@@ -58,5 +58,17 @@ public class Main {
         NodeList ides = doc.getElementsByTagName("ide");
         lerElementosIde(ides, root);
 
+    }
+
+    private static void lerElementosEmit(NodeList elementos, Documento documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noEmit = elementos.item(temp);
+            if (noEmit.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noEmit;
+                documento.setCnpjEmissor(eElement.getElementsByTagName("CNPJ").item(temp).getTextContent());
+                documento.setNomeEmissor(eElement.getElementsByTagName("xNome").item(temp).getTextContent());
+                documento.setInscricaoEstadualEmissor(eElement.getElementsByTagName("IE").item(temp).getTextContent());
+            }
+        }
     }
 }
