@@ -9,14 +9,16 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.sql.Date;
+import java.time.Instant;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         lerXML();
     }
 
-    private static void lerXML() throws Exception{
+    private static void lerXML() throws Exception {
         File fXmlFile = new File("C:\\CTe-41221085393783000254570010000113651000085803.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -31,6 +33,14 @@ public class Main {
 
     }
 
+    private static void lerElementosInfCte(Document doc, Documento root) {
+        NodeList ides = doc.getElementsByTagName("ide");                    //Imprimindo elementos de cada método
+        lerElementosIde(ides, root);
+        NodeList emits = doc.getElementsByTagName("emit");
+        lerElementosEmit(emits, root);
+
+    }
+
     private static void lerElementosIde(NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
             Node noIde = elementos.item(temp);
@@ -39,26 +49,21 @@ public class Main {
                 documento.setNumero(eElement.getElementsByTagName("nCT").item(temp).getTextContent());
                 documento.setSerie(eElement.getElementsByTagName("cCT").item(temp).getTextContent());
                 documento.setTipoServico(eElement.getElementsByTagName("tpServ").item(temp).getTextContent());
-                documento.setDataEmissao(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent());
+                documento.setDataEmissao(Date.from(Instant.parse(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent())));
                 documento.setTipoCte(eElement.getElementsByTagName("tpCTe").item(temp).getTextContent());
-                documento.setIbgeInicioOperacao(eElement.getElementsByTagName("cMunIni").item(temp).getTextContent());
+                documento.setIbgeInicioOperacao(Integer.parseInt(eElement.getElementsByTagName("cMunIni").item(temp).getTextContent()));
                 documento.setCidadeInicioOperacao(eElement.getElementsByTagName("xMunIni").item(temp).getTextContent());
                 documento.setUfInicioOperacao(eElement.getElementsByTagName("UFIni").item(temp).getTextContent());
-                documento.setIbgeFimOperacao(eElement.getElementsByTagName("cMunFim").item(temp).getTextContent());
+                documento.setIbgeFimOperacao(Integer.parseInt(eElement.getElementsByTagName("cMunFim").item(temp).getTextContent()));
                 documento.setCidadeFimOperacao(eElement.getElementsByTagName("xMunFim").item(temp).getTextContent());
                 documento.setUfFimOperacao(eElement.getElementsByTagName("UFFim").item(temp).getTextContent());
-                documento.setCfop(eElement.getElementsByTagName("CFOP").item(temp).getTextContent());
+                documento.setCfop(Integer.parseInt(eElement.getElementsByTagName("CFOP").item(temp).getTextContent()));
                 documento.setModal(eElement.getElementsByTagName("modal").item(temp).getTextContent());
 
             }
         }
     }
 
-    private static void lerElementosInfCte(Document doc, Documento root) {
-        NodeList ides = doc.getElementsByTagName("ide");
-        lerElementosIde(ides, root);
-
-    }
 
     private static void lerElementosEmit(NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
