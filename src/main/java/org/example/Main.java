@@ -1,6 +1,7 @@
 package org.example;
 
 import com.google.gson.Gson;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -34,11 +35,13 @@ public class Main {
     }
 
     private static void lerElementosInfCte(Document doc, Documento root) {
-        NodeList ides = doc.getElementsByTagName("ide");                    //Imprimindo elementos de cada método
+        System.out.println("####Imprimindo informações extraídas do XML:####\n");
+        NodeList ides = doc.getElementsByTagName("ide");
         lerElementosIde(ides, root);
         NodeList emits = doc.getElementsByTagName("emit");
         lerElementosEmit(emits, root);
-
+        NodeList toma3 = doc.getElementsByTagName("toma3");
+        lerElementosToma3(toma3, root);
     }
 
     private static void lerElementosIde(NodeList elementos, Documento documento) {
@@ -73,6 +76,17 @@ public class Main {
                 documento.setCnpjEmissor(eElement.getElementsByTagName("CNPJ").item(temp).getTextContent());
                 documento.setNomeEmissor(eElement.getElementsByTagName("xNome").item(temp).getTextContent());
                 documento.setInscricaoEstadualEmissor(eElement.getElementsByTagName("IE").item(temp).getTextContent());
+            }
+        }
+    }
+
+    private static void lerElementosToma3(NodeList elementos, Documento documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noToma3 = elementos.item(temp);
+            if (noToma3.getNodeType() == Node.ELEMENT_NODE) {
+                  Element eElement =  (Element) noToma3;
+                  documento.setTomador(Integer.parseInt(eElement.getElementsByTagName("toma").item(temp).getTextContent()));
+
             }
         }
     }
