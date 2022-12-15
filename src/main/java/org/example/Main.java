@@ -1,7 +1,6 @@
 package org.example;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -42,6 +41,8 @@ public class Main {
         lerElementosEmit(emits, root);
         NodeList toma3 = doc.getElementsByTagName("toma3");
         lerElementosToma3(toma3, root);
+        NodeList chCte = doc.getElementsByTagName("chCte");
+        lerElementosChCte(chCte, root);
     }
 
     private static void lerElementosIde(NodeList elementos, Documento documento) {
@@ -86,6 +87,18 @@ public class Main {
             if (noToma3.getNodeType() == Node.ELEMENT_NODE) {
                   Element eElement =  (Element) noToma3;
                   documento.setTomador(Integer.parseInt(eElement.getElementsByTagName("toma").item(temp).getTextContent()));
+
+            }
+        }
+    }
+
+    private static void lerElementosChCte(NodeList elementos, Documento documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noChCte = elementos.item(temp);
+            if (noChCte.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noChCte;
+                documento.setTipoDoc("cte"); //Como vai ser smpre CTE..
+                documento.setChave(eElement.getElementsByTagName("chCte").item(temp).getTextContent());
 
             }
         }
