@@ -43,6 +43,8 @@ public class Main {
         lerElementosToma3(toma3, root);
         NodeList chCte = doc.getElementsByTagName("chCte");
         lerElementosChCte(chCte, root);
+        NodeList cst = doc.getElementsByTagName("cst");
+        lerElementosCST(cst, root);
     }
 
     private static void lerElementosIde(NodeList elementos, Documento documento) {
@@ -97,10 +99,41 @@ public class Main {
             Node noChCte = elementos.item(temp);
             if (noChCte.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) noChCte;
-                documento.setTipoDoc("cte"); //Como vai ser smpre CTE..
+                documento.setTipoDoc("cte"); //Como vai ser sempre CTE..
                 documento.setChave(eElement.getElementsByTagName("chCte").item(temp).getTextContent());
 
             }
         }
     }
+
+    private static void lerElementosCST (NodeList elementos, Documento documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noCST = elementos.item(temp);
+            if (noCST.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noCST;
+                documento.setTipoTributacao(eElement.getElementsByTagName("CST").item(temp).getTextContent());
+
+            }
+        }
+    }
+
+    private static void lerElementosPICMS (NodeList elementos, Documento documentos) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noPICMS = elementos.item(temp);
+            if (noPICMS.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noPICMS;
+                documentos.setAliquotaIcms(eElement.getElementsByTagName("pICMS").item(temp).getNodeType());
+            }
+        }
+    }
+
+//    private static void lerElementosInfQ (NodeList elementos, Documento documento) {
+//        for (int temp = 0; temp < elementos.getLength(); temp++) {
+//            Node noInfQ = elementos.item(temp);
+//            if (noInfQ.getNodeType() == Node.ELEMENT_NODE) {
+//                Element eElement = (Element) noInfQ;
+//
+//            }
+//        }
+//    }
 }
