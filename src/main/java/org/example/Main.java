@@ -45,6 +45,9 @@ public class Main {
         lerElementosChCte(chCte, root);
         NodeList cst = doc.getElementsByTagName("cst");
         lerElementosCST(cst, root);
+        NodeList pICMS = doc.getElementsByTagName("picms");
+        lerElementosPICMS(pICMS, root);
+
     }
 
     private static void lerElementosIde(NodeList elementos, Documento documento) {
