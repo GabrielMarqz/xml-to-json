@@ -1,0 +1,92 @@
+[33mcommit aa3d74c873cd644bca4a7a45d73688f3a7fe1b73[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Merge: 5ae5dc7 940f7c1
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Fri Jan 6 09:57:42 2023 -0300
+
+    Configurando novo Not com o GIT
+
+[33mcommit 5ae5dc755aefe795617e4786747e467bb1eb9205[m
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Thu Jan 5 15:11:27 2023 -0300
+
+    Testando novo notbook, configurando Git
+
+[33mcommit 940f7c16e1d4e98982ddb8babde18a49a429da5e[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Gabriel Marques <108015190+GabrielMarqz@users.noreply.github.com>
+Date:   Thu Jan 5 14:54:42 2023 -0300
+
+    Update README.txt
+
+[33mcommit ffc6cae188627d02a9deceed95628c12478eaea0[m
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Fri Dec 23 16:58:21 2022 -0300
+
+    Criando método lerElementosPICMS
+
+[33mcommit 22d289dfc2e3b673247637050b8e54986ee323ba[m
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Fri Dec 23 16:29:18 2022 -0300
+
+    Criando método lerElementosCST
+
+[33mcommit 135ad32cdc9af95d02e7b6dcd21ee55b07df1704[m
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Thu Dec 15 17:27:16 2022 -0300
+
+    Criando método lerElementosChCte
+
+[33mcommit cb072ac60fab47f738c3838050f9e2f035872dc8[m
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Wed Dec 14 13:57:36 2022 -0300
+
+    Criando método lerElementosToma3
+
+[33mcommit c7d1f12d64b30e8e630bc73d9bf9ee7d4d0ceba1[m
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Tue Dec 13 14:22:30 2022 -0300
+
+    Alterando método LerElementosInfCTE para testar alterações nos métodos
+
+[33mcommit 77f4e8abebb236e03ad81a9f4482c61b315b3de7[m
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Fri Dec 2 22:10:10 2022 -0300
+
+    Criando método lerElementosEmit e adicionando os elementos necessários
+
+[33mcommit 196b04bd4f2e3fd24141f657940874415bcf7802[m
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Fri Dec 2 21:38:19 2022 -0300
+
+    Concluindo método lerElementosIde, com todos os campos necessários
+
+[33mcommit 1b8bbe47b189e44674fb45c74ac637c8170eacf5[m
+Author: Gabriel Marques <108015190+GabrielMarqz@users.noreply.github.com>
+Date:   Fri Dec 2 20:47:55 2022 -0300
+
+    Update README.txt
+    
+    Alterando README através do GITHUB
+
+[33mcommit 8d758743a24ec3150f3f2958b6038fd3a3b54567[m
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Fri Dec 2 20:46:31 2022 -0300
+
+    Atualizando README com descrição dos primeiros metodos
+
+[33mcommit c39f4a9fc33d2c6b133248e7fa13fce5b24cdd50[m
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Fri Dec 2 20:35:30 2022 -0300
+
+    Alterando README
+
+[33mcommit ae32ca5d0ffe567ad8c8e938dbca46b3a49cb63f[m
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Fri Dec 2 20:29:16 2022 -0300
+
+    Editando README
+
+[33mcommit 98e8ed9fb2464f25905a9d8d466e54379dc60ae2[m[33m ([m[1;32mteste[m[33m)[m
+Author: Gabriel Marques <bielstunt@gmail.com>
+Date:   Fri Dec 2 20:27:24 2022 -0300
+
+    Adicionando README

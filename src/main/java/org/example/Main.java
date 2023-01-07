@@ -47,6 +47,9 @@ public class Main {
         lerElementosCST(cst, root);
         NodeList pICMS = doc.getElementsByTagName("picms");
         lerElementosPICMS(pICMS, root);
+        NodeList vCarga = doc.getElementsByTagName("vCarga");
+        lerElementosVCarga(vCarga, root);
+
 
     }
 
@@ -126,6 +129,16 @@ public class Main {
             if (noPICMS.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) noPICMS;
                 documentos.setAliquotaIcms(eElement.getElementsByTagName("pICMS").item(temp).getNodeType());
+            }
+        }
+    }
+
+    private static void lerElementosVCarga (NodeList elementos, Documento documentos) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noVCarga = elementos.item(temp);
+            if (noVCarga.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noVCarga;
+                documentos.setValorNotas(eElement.getElementsByTagName("vCarga").item(temp).getNodeType());
             }
         }
     }
