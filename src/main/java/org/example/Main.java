@@ -47,9 +47,14 @@ public class Main {
         lerElementosCST(cst, root);
         NodeList pICMS = doc.getElementsByTagName("picms");
         lerElementosPICMS(pICMS, root);
-        NodeList vCarga = doc.getElementsByTagName("vCarga");
-        lerElementosVCarga(vCarga, root);
-
+//        NodeList vCarga = doc.getElementsByTagName("vCarga");
+//        lerElementosVCarga(vCarga, root);             ***********esta com erro
+        NodeList vTPres = doc.getElementsByTagName("vTPres");
+        lerElementosVTPrest(vTPres, root);
+//        NodeList vBC = doc.getElementsByTagName("vBC");
+//        lerElementosVBC(vBC, root);                 ***********esta com erro
+//        NodeList vICMS = doc.getElementsByTagName("vICMS");
+//        lerElementosVICMS(vICMS, root);              ***********esta com erro
 
     }
 
@@ -123,22 +128,52 @@ public class Main {
         }
     }
 
-    private static void lerElementosPICMS (NodeList elementos, Documento documentos) {
+    private static void lerElementosPICMS (NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
             Node noPICMS = elementos.item(temp);
             if (noPICMS.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) noPICMS;
-                documentos.setAliquotaIcms(eElement.getElementsByTagName("pICMS").item(temp).getNodeType());
+                documento.setAliquotaIcms(Double.parseDouble(eElement.getElementsByTagName("pICMS").item(temp).getTextContent()));
             }
         }
     }
 
-    private static void lerElementosVCarga (NodeList elementos, Documento documentos) {
+    private static void lerElementosVCarga (NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
             Node noVCarga = elementos.item(temp);
             if (noVCarga.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) noVCarga;
-                documentos.setValorNotas(eElement.getElementsByTagName("vCarga").item(temp).getNodeType());
+                documento.setValorNotas(Double.parseDouble(eElement.getElementsByTagName("vCarga").item(temp).getTextContent()));
+            }
+        }
+    }
+
+    private static void lerElementosVTPrest (NodeList elementos, Documento documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noVTPrest = elementos.item(temp);
+            if (noVTPrest.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noVTPrest;
+                documento.setFreteTransp(Double.parseDouble(eElement.getElementsByTagName("vTPrest").item(temp).getTextContent()));
+            }
+        }
+    }
+
+    private static void lerElementosVBC (NodeList elementos, Documento documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noVBC = elementos.item(temp);
+            if (noVBC.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noVBC;
+                documento.setBaseCalculoIcms(Double.parseDouble(eElement.getElementsByTagName("vBC").item(temp).getTextContent()));
+            }
+        }
+    }
+
+    private static void lerElementosVICMS (NodeList elementos, Documento documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noVICMS = elementos.item(temp);
+            if (noVICMS.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noVICMS;
+                documento.setValorIcms(Double.parseDouble(eElement.getElementsByTagName("vICMS").item(temp).getTextContent()));
             }
         }
     }
