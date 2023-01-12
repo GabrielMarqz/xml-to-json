@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.tools.StandardLocation;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -31,10 +32,25 @@ public class Main {
 
         System.out.println(gson.toJson(documento));
 
+        // Criando método para ler classes infquantidadeCTE e Componentesvalor
+
+        InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
+
+        lerinfQuantidadeCTe(doc, infQuantidadeCTe);
+        Gson gson2 = new Gson();
+
+        System.out.println(gson2.toJson(infQuantidadeCTe));
+
+    }
+
+    private static void lerinfQuantidadeCTe(Document doc, InfQuantidadeCTe infQuantidadeCTe) {
+        System.out.println("\n####Imprimindo informações extraídas da classe InfQuantidadeCTe:####\n");
+        NodeList infQ = doc.getElementsByTagName("infQ");
+        lerElementosInfQ(infQ, infQuantidadeCTe);
     }
 
     private static void lerElementosInfCte(Document doc, Documento root) {
-        System.out.println("####Imprimindo informações extraídas do XML:####\n");
+        System.out.println("####Imprimindo informações extraídas da classe Documento:####\n");
         NodeList ides = doc.getElementsByTagName("ide");
         lerElementosIde(ides, root);
         NodeList emits = doc.getElementsByTagName("emit");
@@ -55,6 +71,7 @@ public class Main {
 //        lerElementosVBC(vBC, root);                 ***********esta com erro
 //        NodeList vICMS = doc.getElementsByTagName("vICMS");
 //        lerElementosVICMS(vICMS, root);              ***********esta com erro
+
 
     }
 
@@ -178,13 +195,16 @@ public class Main {
         }
     }
 
-//    private static void lerElementosInfQ (NodeList elementos, Documento documento) {
-//        for (int temp = 0; temp < elementos.getLength(); temp++) {
-//            Node noInfQ = elementos.item(temp);
-//            if (noInfQ.getNodeType() == Node.ELEMENT_NODE) {
-//                Element eElement = (Element) noInfQ;
-//
-//            }
-//        }
-//    }
+    private static void lerElementosInfQ (NodeList elementos, InfQuantidadeCTe documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noInfQ = elementos.item(temp);
+            if (noInfQ.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noInfQ;
+                documento.setCodigoUnidadeMedida(eElement.getElementsByTagName("cUnid").item(temp).getTextContent());
+                documento.setMedida(eElement.getElementsByTagName("tpMed").item(temp).getTextContent());
+                documento.setQuantidade(Double.parseDouble(eElement.getElementsByTagName("qCarga").item(temp).getTextContent()));
+
+            }
+        }
+    }
 }
