@@ -6,7 +6,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.tools.StandardLocation;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -32,7 +31,7 @@ public class Main {
 
         System.out.println(gson.toJson(documento));
 
-        // Criando método para ler classes infquantidadeCTE e Componentesvalor
+        // Criando método para ler classes infquantidadeCTE
 
         InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
 
@@ -41,6 +40,21 @@ public class Main {
 
         System.out.println(gson2.toJson(infQuantidadeCTe));
 
+        // Criando método para ler classes Componentesvalor
+
+        ComponentesValor componentesValor = new ComponentesValor();
+
+        lercomponentesValor(doc, componentesValor);
+        Gson gson3 = new Gson();
+
+        System.out.println(gson3.toJson(componentesValor));
+
+    }
+//                                 precisa ver como adicionar os outros valores
+    private static void lercomponentesValor(Document doc, ComponentesValor componentesValor) {
+        System.out.println("\n####Imprimindo informações extraídas da classe ComponentesValor:####\n");
+        NodeList vPrest = doc.getElementsByTagName("vPrest");
+        lerElementosVPrest(vPrest, componentesValor);
     }
 
     private static void lerinfQuantidadeCTe(Document doc, InfQuantidadeCTe infQuantidadeCTe) {
@@ -50,27 +64,21 @@ public class Main {
     }
 
     private static void lerElementosInfCte(Document doc, Documento root) {
-        System.out.println("####Imprimindo informações extraídas da classe Documento:####\n");
+        System.out.println("\n####Imprimindo informações extraídas da classe Documento:####\n");
         NodeList ides = doc.getElementsByTagName("ide");
         lerElementosIde(ides, root);
         NodeList emits = doc.getElementsByTagName("emit");
         lerElementosEmit(emits, root);
         NodeList toma3 = doc.getElementsByTagName("toma3");
         lerElementosToma3(toma3, root);
-        NodeList chCte = doc.getElementsByTagName("chCte");
-        lerElementosChCte(chCte, root);
-        NodeList cst = doc.getElementsByTagName("cst");
-        lerElementosCST(cst, root);
-        NodeList pICMS = doc.getElementsByTagName("picms");
-        lerElementosPICMS(pICMS, root);
-//        NodeList vCarga = doc.getElementsByTagName("vCarga");
-//        lerElementosVCarga(vCarga, root);             ***********esta com erro
-        NodeList vTPres = doc.getElementsByTagName("vTPres");
-        lerElementosVTPrest(vTPres, root);
-//        NodeList vBC = doc.getElementsByTagName("vBC");
-//        lerElementosVBC(vBC, root);                 ***********esta com erro
-//        NodeList vICMS = doc.getElementsByTagName("vICMS");
-//        lerElementosVICMS(vICMS, root);              ***********esta com erro
+//        NodeList protCTe = doc.getElementsByTagName("protCTe");
+//        lerElementosProtCTe(protCTe, root);
+        NodeList infCarga = doc.getElementsByTagName("infCarga");
+        lerElementosInfCarga(infCarga, root);
+        NodeList ICMS = doc.getElementsByTagName("ICMS");
+        lerElementosICMS(ICMS, root);
+        NodeList vPrest = doc.getElementsByTagName("vPrest");
+        lerElementosVTPrest(vPrest, root);
 
 
     }
@@ -122,11 +130,11 @@ public class Main {
         }
     }
 
-    private static void lerElementosChCte(NodeList elementos, Documento documento) {
+    private static void lerElementosProtCTe(NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
-            Node noChCte = elementos.item(temp);
-            if (noChCte.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) noChCte;
+            Node noProtCTe = elementos.item(temp);
+            if (noProtCTe.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noProtCTe;
                 documento.setTipoDoc("cte"); //Como vai ser sempre CTE..
                 documento.setChave(eElement.getElementsByTagName("chCte").item(temp).getTextContent());
 
@@ -134,33 +142,24 @@ public class Main {
         }
     }
 
-    private static void lerElementosCST (NodeList elementos, Documento documento) {
+    private static void lerElementosInfCarga(NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
-            Node noCST = elementos.item(temp);
-            if (noCST.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) noCST;
-                documento.setTipoTributacao(eElement.getElementsByTagName("CST").item(temp).getTextContent());
-
-            }
-        }
-    }
-
-    private static void lerElementosPICMS (NodeList elementos, Documento documento) {
-        for (int temp = 0; temp < elementos.getLength(); temp++) {
-            Node noPICMS = elementos.item(temp);
-            if (noPICMS.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) noPICMS;
-                documento.setAliquotaIcms(Double.parseDouble(eElement.getElementsByTagName("pICMS").item(temp).getTextContent()));
-            }
-        }
-    }
-
-    private static void lerElementosVCarga (NodeList elementos, Documento documento) {
-        for (int temp = 0; temp < elementos.getLength(); temp++) {
-            Node noVCarga = elementos.item(temp);
-            if (noVCarga.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) noVCarga;
+            Node noInfCarga = elementos.item(temp);
+            if (noInfCarga.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noInfCarga;
                 documento.setValorNotas(Double.parseDouble(eElement.getElementsByTagName("vCarga").item(temp).getTextContent()));
+            }
+        }
+    }
+
+    private static void lerElementosVPrest(NodeList elementos, ComponentesValor documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noVPrest = elementos.item(temp);
+            if (noVPrest.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noVPrest;
+                documento.setCampo(eElement.getElementsByTagName("xNome").item(temp).getTextContent());
+                documento.setValor(Double.parseDouble(eElement.getElementsByTagName("vComp").item(temp).getTextContent()));
+
             }
         }
     }
@@ -174,23 +173,15 @@ public class Main {
             }
         }
     }
-
-    private static void lerElementosVBC (NodeList elementos, Documento documento) {
+    private static void lerElementosICMS (NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
-            Node noVBC = elementos.item(temp);
-            if (noVBC.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) noVBC;
-                documento.setBaseCalculoIcms(Double.parseDouble(eElement.getElementsByTagName("vBC").item(temp).getTextContent()));
-            }
-        }
-    }
-
-    private static void lerElementosVICMS (NodeList elementos, Documento documento) {
-        for (int temp = 0; temp < elementos.getLength(); temp++) {
-            Node noVICMS = elementos.item(temp);
-            if (noVICMS.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) noVICMS;
+            Node noICMS = elementos.item(temp);
+            if (noICMS.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noICMS;
                 documento.setValorIcms(Double.parseDouble(eElement.getElementsByTagName("vICMS").item(temp).getTextContent()));
+                documento.setBaseCalculoIcms(Double.parseDouble(eElement.getElementsByTagName("vBC").item(temp).getTextContent()));
+                documento.setAliquotaIcms(Double.parseDouble(eElement.getElementsByTagName("pICMS").item(temp).getTextContent()));
+                documento.setTipoTributacao(eElement.getElementsByTagName("CST").item(temp).getTextContent());
             }
         }
     }
