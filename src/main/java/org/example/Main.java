@@ -50,7 +50,8 @@ public class Main {
         System.out.println(gson3.toJson(componentesValor));
 
     }
-//                                 precisa ver como adicionar os outros valores
+
+    //                                 precisa ver como adicionar os outros valores
     private static void lercomponentesValor(Document doc, ComponentesValor componentesValor) {
         System.out.println("\n####Imprimindo informações extraídas da classe ComponentesValor:####\n");
         NodeList vPrest = doc.getElementsByTagName("vPrest");
@@ -69,6 +70,10 @@ public class Main {
         lerElementosIde(ides, root);
         NodeList emits = doc.getElementsByTagName("emit");
         lerElementosEmit(emits, root);
+        NodeList dest = doc.getElementsByTagName("dest");
+        lerElementosDest(dest, root);
+        NodeList rem = doc.getElementsByTagName("rem");
+        lerElementosRem(rem, root);
         NodeList toma3 = doc.getElementsByTagName("toma3");
         lerElementosToma3(toma3, root);
 //        NodeList protCTe = doc.getElementsByTagName("protCTe");
@@ -79,6 +84,12 @@ public class Main {
         lerElementosICMS(ICMS, root);
         NodeList vPrest = doc.getElementsByTagName("vPrest");
         lerElementosVTPrest(vPrest, root);
+        NodeList enderEmit = doc.getElementsByTagName("enderEmit");
+        lerElementosEnderEmit(enderEmit, root);
+        NodeList enderDest = doc.getElementsByTagName("enderDest");
+        lerElementosEnderDest(enderDest, root);
+        NodeList enderReme = doc.getElementsByTagName("enderReme");
+        lerElementosEnderReme(enderReme, root);
 
 
     }
@@ -118,13 +129,35 @@ public class Main {
             }
         }
     }
+    private static void lerElementosDest(NodeList elementos, Documento documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noDest = elementos.item(temp);
+            if (noDest.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noDest;
+                documento.setCnpjCpfDestinatario(eElement.getElementsByTagName("CNPJ").item(temp).getTextContent());
+                documento.setNomeDestinatario(eElement.getElementsByTagName("xNome").item(temp).getTextContent());
+                documento.setInscricaoEstadualDestinatario(eElement.getElementsByTagName("IE").item(temp).getTextContent());
+            }
+        }
+    }
+    private static void lerElementosRem(NodeList elementos, Documento documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noRem = elementos.item(temp);
+            if (noRem.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noRem;
+                documento.setCnpjCpfRementente(eElement.getElementsByTagName("CNPJ").item(temp).getTextContent());
+                documento.setNomeRementente(eElement.getElementsByTagName("xNome").item(temp).getTextContent());
+                documento.setInscricaoEstadualRementente(eElement.getElementsByTagName("IE").item(temp).getTextContent());
+            }
+        }
+    }
 
     private static void lerElementosToma3(NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
             Node noToma3 = elementos.item(temp);
             if (noToma3.getNodeType() == Node.ELEMENT_NODE) {
-                  Element eElement =  (Element) noToma3;
-                  documento.setTomador(Integer.parseInt(eElement.getElementsByTagName("toma").item(temp).getTextContent()));
+                Element eElement = (Element) noToma3;
+                documento.setTomador(Integer.parseInt(eElement.getElementsByTagName("toma").item(temp).getTextContent()));
 
             }
         }
@@ -164,7 +197,7 @@ public class Main {
         }
     }
 
-    private static void lerElementosVTPrest (NodeList elementos, Documento documento) {
+    private static void lerElementosVTPrest(NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
             Node noVTPrest = elementos.item(temp);
             if (noVTPrest.getNodeType() == Node.ELEMENT_NODE) {
@@ -173,7 +206,8 @@ public class Main {
             }
         }
     }
-    private static void lerElementosICMS (NodeList elementos, Documento documento) {
+
+    private static void lerElementosICMS(NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
             Node noICMS = elementos.item(temp);
             if (noICMS.getNodeType() == Node.ELEMENT_NODE) {
@@ -186,7 +220,7 @@ public class Main {
         }
     }
 
-    private static void lerElementosInfQ (NodeList elementos, InfQuantidadeCTe documento) {
+    private static void lerElementosInfQ(NodeList elementos, InfQuantidadeCTe documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
             Node noInfQ = elementos.item(temp);
             if (noInfQ.getNodeType() == Node.ELEMENT_NODE) {
@@ -198,4 +232,53 @@ public class Main {
             }
         }
     }
+
+    private static void lerElementosEnderEmit(NodeList elementos, Documento documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noEnderEmit = elementos.item(temp);
+            if (noEnderEmit.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noEnderEmit;
+                documento.setIbgeEmissor(Integer.parseInt(eElement.getElementsByTagName("cMun").item(temp).getTextContent()));
+                documento.setCidadeEmissor(eElement.getElementsByTagName("xMun").item(temp).getTextContent());
+                documento.setUfEmissor(eElement.getElementsByTagName("UF").item(temp).getTextContent());
+                documento.setEnderecoEmissor(eElement.getElementsByTagName("xLgr").item(temp).getTextContent());
+                documento.setNumeroEmissor(eElement.getElementsByTagName("nro").item(temp).getTextContent());
+                documento.setBairroEmissor(eElement.getElementsByTagName("xBairro").item(temp).getTextContent());
+                documento.setCepEmissor(eElement.getElementsByTagName("CEP").item(temp).getTextContent());
+
+            }
+        }
+    }
+
+    private static void lerElementosEnderDest(NodeList elementos, Documento documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noEnderDest = elementos.item(temp);
+            if (noEnderDest.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noEnderDest;
+                documento.setIbgeDestinatario(Integer.parseInt(eElement.getElementsByTagName("cMun").item(temp).getTextContent()));
+                documento.setCidadeDestinatario(eElement.getElementsByTagName("xMun").item(temp).getTextContent());
+                documento.setUfDestinatario(eElement.getElementsByTagName("UF").item(temp).getTextContent());
+                documento.setEnderecoDestinatario(eElement.getElementsByTagName("xLgr").item(temp).getTextContent());
+                documento.setNumeroDestinatario(eElement.getElementsByTagName("nro").item(temp).getTextContent());
+                documento.setBairroDestinatario(eElement.getElementsByTagName("xBairro").item(temp).getTextContent());
+                documento.setCepDestinatario(eElement.getElementsByTagName("CEP").item(temp).getTextContent());
+            }
+        }
+    }
+    private static void lerElementosEnderReme(NodeList elementos, Documento documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noEnderReme = elementos.item(temp);
+            if (noEnderReme.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noEnderReme;
+                documento.setIbgeRementente(Integer.parseInt(eElement.getElementsByTagName("cMun").item(temp).getTextContent()));
+                documento.setCidadeRementente(eElement.getElementsByTagName("xMun").item(temp).getTextContent());
+                documento.setUfRementente(eElement.getElementsByTagName("UF").item(temp).getTextContent());
+                documento.setEnderecoRementente(eElement.getElementsByTagName("xLgr").item(temp).getTextContent());
+                documento.setNumeroRementente(eElement.getElementsByTagName("nro").item(temp).getTextContent());
+                documento.setBairroRementente(eElement.getElementsByTagName("xBairro").item(temp).getTextContent());
+                documento.setCepRementente(eElement.getElementsByTagName("CEP").item(temp).getTextContent());
+            }
+        }
+    }
+
 }
