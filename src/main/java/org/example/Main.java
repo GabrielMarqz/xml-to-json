@@ -31,37 +31,52 @@ public class Main {
 
         System.out.println(gson.toJson(documento));
 
-        // Criando método para ler classes infquantidadeCTE
+        // Criando método para ler classe infquantidadeCTE
 
         InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
 
-        lerinfQuantidadeCTe(doc, infQuantidadeCTe);
+        lerInfQuantidadeCTe(doc, infQuantidadeCTe);
         Gson gson2 = new Gson();
 
         System.out.println(gson2.toJson(infQuantidadeCTe));
 
-        // Criando método para ler classes Componentesvalor
+        // Criando método para ler classe Componentesvalor
 
         ComponentesValor componentesValor = new ComponentesValor();
 
-        lercomponentesValor(doc, componentesValor);
+        lerComponentesValor(doc, componentesValor);
         Gson gson3 = new Gson();
 
         System.out.println(gson3.toJson(componentesValor));
 
+        // Criando método para ler classe NotasFiscais
+
+        NotasFiscais notasFiscais =  new NotasFiscais();
+
+        lerNotasFiscais(doc, notasFiscais);
+        Gson gson4 = new Gson();
+
+        System.out.println(gson4.toJson(notasFiscais));
+
     }
 
     //                                 precisa ver como adicionar os outros valores
-    private static void lercomponentesValor(Document doc, ComponentesValor componentesValor) {
+    private static void lerComponentesValor(Document doc, ComponentesValor componentesValor) {
         System.out.println("\n####Imprimindo informações extraídas da classe ComponentesValor:####\n");
         NodeList vPrest = doc.getElementsByTagName("vPrest");
         lerElementosVPrest(vPrest, componentesValor);
     }
 
-    private static void lerinfQuantidadeCTe(Document doc, InfQuantidadeCTe infQuantidadeCTe) {
+    private static void lerInfQuantidadeCTe(Document doc, InfQuantidadeCTe infQuantidadeCTe) {
         System.out.println("\n####Imprimindo informações extraídas da classe InfQuantidadeCTe:####\n");
         NodeList infQ = doc.getElementsByTagName("infQ");
         lerElementosInfQ(infQ, infQuantidadeCTe);
+    }
+
+    private static void lerNotasFiscais (Document doc, NotasFiscais notasFiscais)   {
+        System.out.println("\n####Imprimindo informações extraídas da classe NotasFiscais:####\n");
+        NodeList infNFe = doc.getElementsByTagName("infNFe");
+        lerElementosInfNFe(infNFe, notasFiscais);
     }
 
     private static void lerElementosInfCte(Document doc, Documento root) {
@@ -228,6 +243,20 @@ public class Main {
                 documento.setCodigoUnidadeMedida(eElement.getElementsByTagName("cUnid").item(temp).getTextContent());
                 documento.setMedida(eElement.getElementsByTagName("tpMed").item(temp).getTextContent());
                 documento.setQuantidade(Double.parseDouble(eElement.getElementsByTagName("qCarga").item(temp).getTextContent()));
+
+            }
+        }
+    }
+
+    private static void lerElementosInfNFe (NodeList elementos, NotasFiscais documento) {
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noInfNFe = elementos.item(temp);
+            if (noInfNFe.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) noInfNFe;
+                documento.setChave(eElement.getElementsByTagName("chave").item(temp).getTextContent());
+                documento.setNumero(Integer.parseInt(eElement.getElementsByTagName("chave").item(temp).getTextContent().substring(25, 34)));
+                documento.setSerie(Integer.parseInt(eElement.getElementsByTagName("chave").item(temp).getTextContent().substring(22, 25)));
+                documento.setCnpjEmissor(eElement.getElementsByTagName("chave").item(temp).getTextContent().substring(6, 20));
 
             }
         }
