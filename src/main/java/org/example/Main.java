@@ -91,8 +91,6 @@ public class Main {
         lerElementosRem(rem, root);
         NodeList toma3 = doc.getElementsByTagName("toma3");
         lerElementosToma3(toma3, root);
-//        NodeList protCTe = doc.getElementsByTagName("protCTe");
-//        lerElementosProtCTe(protCTe, root);
         NodeList infCarga = doc.getElementsByTagName("infCarga");
         lerElementosInfCarga(infCarga, root);
         NodeList ICMS = doc.getElementsByTagName("ICMS");
@@ -105,6 +103,8 @@ public class Main {
         lerElementosEnderDest(enderDest, root);
         NodeList enderReme = doc.getElementsByTagName("enderReme");
         lerElementosEnderReme(enderReme, root);
+        NodeList protCTe = doc.getElementsByTagName("protCTe");
+        lerElementosProtCTe(protCTe, root);
 
 
     }
@@ -184,7 +184,9 @@ public class Main {
             if (noProtCTe.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) noProtCTe;
                 documento.setTipoDoc("cte"); //Como vai ser sempre CTE..
-                documento.setChave(eElement.getElementsByTagName("chCte").item(temp).getTextContent());
+               documento.setChave(eElement.getElementsByTagName("chCTe").item(temp).getTextContent());
+               documento.setProtocoloCte(eElement.getElementsByTagName("nProt").item(temp).getTextContent());
+               documento.setDataProtocoloCte(Date.from(Instant.parse(eElement.getElementsByTagName("dhRecbto").item(temp).getTextContent())));
 
             }
         }
