@@ -15,7 +15,7 @@ public class Documento {
     public Object chaveDocSub;
     public int tomador;
     public String tipoCte;
-    public ArrayList<NotasFiscais> notasFiscais;
+    public List<NotaFiscal> notasFiscais;
     public String cnpjEmissor;
     public String nomeEmissor;
     public int ibgeEmissor;
@@ -183,11 +183,11 @@ public class Documento {
         this.tipoCte = tipoCte;
     }
 
-    public ArrayList<NotasFiscais> getNotasFiscais() {
+    public List<NotaFiscal> getNotasFiscais() {
         return notasFiscais;
     }
 
-    public void setNotasFiscais(ArrayList<NotasFiscais> notasFiscais) {
+    public void setNotasFiscais(List<NotaFiscal> notasFiscais) {
         this.notasFiscais = notasFiscais;
     }
 
