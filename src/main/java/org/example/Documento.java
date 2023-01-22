@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Documento {
     public String tipoDoc;
@@ -99,7 +100,7 @@ public class Documento {
     public String protocoloCte;
     public Date dataProtocoloCte;
     public String modal;
-    public ArrayList<ComponentesValor> componentesValor;
+    public List<ComponentesValor> componentesValor;
     public ArrayList<InfQuantidadeCTe> infQuantidadeCTe;
 
     public String getTipoDoc() {
@@ -862,11 +863,11 @@ public class Documento {
         this.modal = modal;
     }
 
-    public ArrayList<ComponentesValor> getComponentesValor() {
+    public List<ComponentesValor> getComponentesValor() {
         return componentesValor;
     }
 
-    public void setComponentesValor(ArrayList<ComponentesValor> componentesValor) {
+    public void setComponentesValor(List<ComponentesValor> componentesValor) {
         this.componentesValor = componentesValor;
     }
 

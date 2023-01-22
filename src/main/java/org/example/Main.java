@@ -11,11 +11,16 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.sql.Date;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
         lerXML();
+
     }
 
     private static void lerXML() throws Exception {
@@ -44,10 +49,10 @@ public class Main {
 
         ComponentesValor componentesValor = new ComponentesValor();
 
-        lerComponentesValor(doc, componentesValor);
+        lerComponentesValor(doc, documento);
         Gson gson3 = new Gson();
 
-        System.out.println(gson3.toJson(componentesValor));
+        System.out.println(gson3.toJson(documento.getComponentesValor()));
 
         // Criando método para ler classe NotasFiscais
 
@@ -61,10 +66,13 @@ public class Main {
     }
 
     //                                 precisa ver como adicionar os outros valores
-    private static void lerComponentesValor(Document doc, ComponentesValor componentesValor) {
+    private static void lerComponentesValor(Document doc, Documento documento) {
         System.out.println("\n####Imprimindo informações extraídas da classe ComponentesValor:####\n");
-        NodeList vPrest = doc.getElementsByTagName("vPrest");
-        lerElementosVPrest(vPrest, componentesValor);
+//        NodeList vPrest = doc.getElementsByTagName("vPrest");
+//        lerElementosVPrest(vPrest, componentesValor);
+
+        NodeList comp = doc.getElementsByTagName("Comp");
+        lerElementosComp(comp,documento);
     }
 
     private static void lerInfQuantidadeCTe(Document doc, InfQuantidadeCTe infQuantidadeCTe) {
@@ -207,11 +215,25 @@ public class Main {
             Node noVPrest = elementos.item(temp);
             if (noVPrest.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) noVPrest;
-                documento.setCampo(eElement.getElementsByTagName("xNome").item(temp).getTextContent());
-                documento.setValor(Double.parseDouble(eElement.getElementsByTagName("vComp").item(temp).getTextContent()));
+               documento.setCampo(eElement.getElementsByTagName("xNome").item(temp).getTextContent());
+               documento.setValor(Double.parseDouble(eElement.getElementsByTagName("vComp").item(temp).getTextContent()));
 
             }
         }
+    }
+    private static void lerElementosComp(NodeList elementos, Documento documento) {
+        List<ComponentesValor> componentesValors = new ArrayList<>();
+        for (int temp = 0; temp < elementos.getLength(); temp++) {
+            Node noVPrest = elementos.item(temp);
+            if (noVPrest.getNodeType() == Node.ELEMENT_NODE) {
+                ComponentesValor componentesValor = new ComponentesValor();
+                Element eElement = (Element) noVPrest;
+                componentesValor.setCampo(eElement.getElementsByTagName("xNome").item(0).getTextContent());
+                componentesValor.setValor(Double.parseDouble(eElement.getElementsByTagName("vComp").item(0).getTextContent()));
+                componentesValors.add(componentesValor);
+            }
+        }
+        documento.setComponentesValor(componentesValors);
     }
 
     private static void lerElementosVTPrest(NodeList elementos, Documento documento) {

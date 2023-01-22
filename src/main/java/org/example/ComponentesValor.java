@@ -1,6 +1,15 @@
 package org.example;
 
 public class ComponentesValor {
+
+    public ComponentesValor() {
+    }
+
+    public ComponentesValor(String campo, double valor) {
+        this.campo = campo;
+        this.valor = valor;
+    }
+
     public String getCampo() {
         return campo;
     }
