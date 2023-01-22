@@ -22,7 +22,7 @@ public class Main {
     }
 
     private static void lerXML() throws Exception {
-        File fXmlFile = new File("C:\\CTe-41230185393783000254570010000116071000088271.xml");
+        File fXmlFile = new File("D:\\CTe-41230185393783000254570010000116071000088271.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(fXmlFile);
@@ -254,9 +254,9 @@ public class Main {
             Node noInfQ = elementos.item(temp);
             if (noInfQ.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) noInfQ;
-                documento.setCodigoUnidadeMedida(eElement.getElementsByTagName("cUnid").item(temp).getTextContent());
-                documento.setMedida(eElement.getElementsByTagName("tpMed").item(temp).getTextContent());
-                documento.setQuantidade(Double.parseDouble(eElement.getElementsByTagName("qCarga").item(temp).getTextContent()));
+                documento.setCodigoUnidadeMedida(eElement.getElementsByTagName("cUnid").item(0).getTextContent());
+                documento.setMedida(eElement.getElementsByTagName("tpMed").item(0).getTextContent());
+                documento.setQuantidade(Double.parseDouble(eElement.getElementsByTagName("qCarga").item(0).getTextContent()));
 
             }
         }
@@ -283,10 +283,10 @@ public class Main {
                 NotaFiscal notaFiscal = new NotaFiscal();
                 Element eElement = (Element) noVPrest;
 
-                notaFiscal.setChave(eElement.getElementsByTagName("chave").item(temp).getTextContent());
-                notaFiscal.setNumero(Integer.parseInt(eElement.getElementsByTagName("chave").item(temp).getTextContent().substring(25, 34)));
-                notaFiscal.setSerie(Integer.parseInt(eElement.getElementsByTagName("chave").item(temp).getTextContent().substring(22, 25)));
-                notaFiscal.setCnpjEmissor(eElement.getElementsByTagName("chave").item(temp).getTextContent().substring(6, 20));
+                notaFiscal.setChave(eElement.getElementsByTagName("chave").item(0).getTextContent());
+                notaFiscal.setNumero(Integer.parseInt(eElement.getElementsByTagName("chave").item(0).getTextContent().substring(25, 34)));
+                notaFiscal.setSerie(Integer.parseInt(eElement.getElementsByTagName("chave").item(0).getTextContent().substring(22, 25)));
+                notaFiscal.setCnpjEmissor(eElement.getElementsByTagName("chave").item(0).getTextContent().substring(6, 20));
                 notasFiscais.add(notaFiscal);
             }
         }
