@@ -101,7 +101,7 @@ public class Documento {
     public Date dataProtocoloCte;
     public String modal;
     public List<ComponentesValor> componentesValor;
-    public ArrayList<InfQuantidadeCTe> infQuantidadeCTe;
+    public List<InfQuantidadeCTe> infQuantidadeCTe;
 
     public String getTipoDoc() {
         return tipoDoc;
@@ -871,11 +871,11 @@ public class Documento {
         this.componentesValor = componentesValor;
     }
 
-    public ArrayList<InfQuantidadeCTe> getInfQuantidadeCTe() {
+    public List<InfQuantidadeCTe> getInfQuantidadeCTe() {
         return infQuantidadeCTe;
     }
 
-    public void setInfQuantidadeCTe(ArrayList<InfQuantidadeCTe> infQuantidadeCTe) {
+    public void setInfQuantidadeCTe(List<InfQuantidadeCTe> infQuantidadeCTe) {
         this.infQuantidadeCTe = infQuantidadeCTe;
     }
 }

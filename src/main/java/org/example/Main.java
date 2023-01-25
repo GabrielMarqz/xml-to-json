@@ -22,7 +22,7 @@ public class Main {
     }
 
     private static void lerXML() throws Exception {
-        File fXmlFile = new File("D:\\CTe-41230185393783000254570010000116071000088271.xml");
+        File fXmlFile = new File("C:\\CTe-41230185393783000254570010000116071000088271.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(fXmlFile);
@@ -38,10 +38,10 @@ public class Main {
 
         InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
 
-        lerInfQuantidadeCTe(doc, infQuantidadeCTe);
+        lerInfQuantidadeCTe(doc, documento);
         Gson gson2 = new Gson();
 
-        System.out.println(gson2.toJson(infQuantidadeCTe));
+        System.out.println(gson2.toJson(documento.getInfQuantidadeCTe()));
 
         // Criando método para ler classe Componentesvalor
 
@@ -61,6 +61,8 @@ public class Main {
 
         System.out.println(gson4.toJson(documento.getNotasFiscais()));
 
+        System.out.println(gson.toJson(documento));
+
     }
 
     //                                 precisa ver como adicionar os outros valores
@@ -73,10 +75,13 @@ public class Main {
         lerElementosComp(comp,documento);
     }
 
-    private static void lerInfQuantidadeCTe(Document doc, InfQuantidadeCTe infQuantidadeCTe) {
+    private static void lerInfQuantidadeCTe(Document doc, Documento documento) {
         System.out.println("\n####Imprimindo informações extraídas da classe InfQuantidadeCTe:####\n");
+//        NodeList infQ = doc.getElementsByTagName("infQ");
+//        lerElementosInfQ(infQ, infQuantidadeCTe);
+
         NodeList infQ = doc.getElementsByTagName("infQ");
-        lerElementosInfQ(infQ, infQuantidadeCTe);
+        lerElementosInfQ(infQ, documento);
     }
 
     private static void lerNotasFiscais (Document doc, Documento documento)   {
@@ -249,32 +254,23 @@ public class Main {
         }
     }
 
-    private static void lerElementosInfQ(NodeList elementos, InfQuantidadeCTe documento) {
+    private static void lerElementosInfQ(NodeList elementos, Documento documento) {
+        List<InfQuantidadeCTe> infQuantidadeCTes = new ArrayList<>();
         for (int temp = 0; temp < elementos.getLength(); temp++) {
             Node noInfQ = elementos.item(temp);
             if (noInfQ.getNodeType() == Node.ELEMENT_NODE) {
+                InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
                 Element eElement = (Element) noInfQ;
-                documento.setCodigoUnidadeMedida(eElement.getElementsByTagName("cUnid").item(0).getTextContent());
-                documento.setMedida(eElement.getElementsByTagName("tpMed").item(0).getTextContent());
-                documento.setQuantidade(Double.parseDouble(eElement.getElementsByTagName("qCarga").item(0).getTextContent()));
+                infQuantidadeCTe.setCodigoUnidadeMedida(eElement.getElementsByTagName("cUnid").item(0).getTextContent());
+                infQuantidadeCTe.setMedida(eElement.getElementsByTagName("tpMed").item(0).getTextContent());
+                infQuantidadeCTe.setQuantidade(Double.parseDouble(eElement.getElementsByTagName("qCarga").item(0).getTextContent()));
+                infQuantidadeCTes.add(infQuantidadeCTe);
 
             }
         }
+        documento.setInfQuantidadeCTe(infQuantidadeCTes);
     }
 
-    private static void lerElementosInfNFe (NodeList elementos, NotaFiscal documento) {
-        for (int temp = 0; temp < elementos.getLength(); temp++) {
-            Node noInfNFe = elementos.item(temp);
-            if (noInfNFe.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) noInfNFe;
-                documento.setChave(eElement.getElementsByTagName("chave").item(temp).getTextContent());
-                documento.setNumero(Integer.parseInt(eElement.getElementsByTagName("chave").item(temp).getTextContent().substring(25, 34)));
-                documento.setSerie(Integer.parseInt(eElement.getElementsByTagName("chave").item(temp).getTextContent().substring(22, 25)));
-                documento.setCnpjEmissor(eElement.getElementsByTagName("chave").item(temp).getTextContent().substring(6, 20));
-
-            }
-        }
-    }
     private static void lerElementosInfNFe(NodeList elementos, Documento documento) {
         List<NotaFiscal> notasFiscais = new ArrayList<>();
         for (int temp = 0; temp < elementos.getLength(); temp++) {
