@@ -1,22 +1,22 @@
 package org.example;
 
 public class InfQuantidadeCTe {
-    public String codigoUnidadeMedida;
+    public Integer codigoUnidadeMedida;
 
     public String medida;
     public double quantidade;
 
-//    public InfQuantidadeCTe(String codigoUnidadeMedida, String medida, double quantidade) {
+//    public InfQuantidadeCTe(Integer codigoUnidadeMedida, String medida, double quantidade) {
 //        this.codigoUnidadeMedida = codigoUnidadeMedida;
 //        this.medida = medida;
 //        this.quantidade = quantidade;
 //    }
 
-    public String getCodigoUnidadeMedida() {
+    public Integer getCodigoUnidadeMedida() {
         return codigoUnidadeMedida;
     }
 
-    public void setCodigoUnidadeMedida(String codigoUnidadeMedida) {
+    public void setCodigoUnidadeMedida(Integer codigoUnidadeMedida) {
         this.codigoUnidadeMedida = codigoUnidadeMedida;
     }
     public String getMedida() {

@@ -1,5 +1,6 @@
 package org.example;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +10,7 @@ public class Documento {
     public String chave;
     public String numero;
     public String serie;
+
     public Date dataEmissao;
     public String tipoServico;
     public Object chaveDocComp;
@@ -96,6 +98,7 @@ public class Documento {
     public double aliquotaIcms;
     public Object percRedBaseCalculoIcms;
     public String tipoTributacao;
+
     public int cfop;
     public String protocoloCte;
     public Date dataProtocoloCte;

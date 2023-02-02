@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -122,6 +123,8 @@ public class Main {
 
 
     }
+   // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+//    Instant instant = Instant.parse("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 
     private static void lerElementosIde(NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
@@ -131,7 +134,9 @@ public class Main {
                 documento.setNumero(eElement.getElementsByTagName("nCT").item(temp).getTextContent());
                 documento.setSerie(eElement.getElementsByTagName("cCT").item(temp).getTextContent());
                 documento.setTipoServico(eElement.getElementsByTagName("tpServ").item(temp).getTextContent());
-                documento.setDataEmissao(Date.from(Instant.parse(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent())));
+               // sdf.format(new Date(documento.setDataEmissao(Date.from(Instant.parse(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent()))))));
+              //  documento.setDataEmissao(Date.from(Instant.parse(sdf.format(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent()))));
+               // documento.setDataEmissao(Date.from(Instant.ofEpochSecond(Long.parseLong(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent()))));
                 documento.setTipoCte(eElement.getElementsByTagName("tpCTe").item(temp).getTextContent());
                 documento.setIbgeInicioOperacao(Integer.parseInt(eElement.getElementsByTagName("cMunIni").item(temp).getTextContent()));
                 documento.setCidadeInicioOperacao(eElement.getElementsByTagName("xMunIni").item(temp).getTextContent());
@@ -201,7 +206,7 @@ public class Main {
                documento.setChave(eElement.getElementsByTagName("chCTe").item(temp).getTextContent());
                documento.setProtocoloCte(eElement.getElementsByTagName("nProt").item(temp).getTextContent());
                documento.setDataProtocoloCte(Date.from(Instant.parse(eElement.getElementsByTagName("dhRecbto").item(temp).getTextContent())));
-
+               //sdf.format(new Date()));
             }
         }
     }
@@ -250,9 +255,12 @@ public class Main {
                 documento.setBaseCalculoIcms(Double.parseDouble(eElement.getElementsByTagName("vBC").item(temp).getTextContent()));
                 documento.setAliquotaIcms(Double.parseDouble(eElement.getElementsByTagName("pICMS").item(temp).getTextContent()));
                 documento.setTipoTributacao(eElement.getElementsByTagName("CST").item(temp).getTextContent());
+                if (documento.getTipoTributacao().equals("00")) {documento.setTipoTributacao("Normal");}
+                else if (documento.getTipoTributacao().equals("40")) {documento.setTipoTributacao("Isento");}
             }
         }
     }
+
 
     private static void lerElementosInfQ(NodeList elementos, Documento documento) {
         List<InfQuantidadeCTe> infQuantidadeCTes = new ArrayList<>();
@@ -261,7 +269,7 @@ public class Main {
             if (noInfQ.getNodeType() == Node.ELEMENT_NODE) {
                 InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
                 Element eElement = (Element) noInfQ;
-                infQuantidadeCTe.setCodigoUnidadeMedida(eElement.getElementsByTagName("cUnid").item(0).getTextContent());
+                infQuantidadeCTe.setCodigoUnidadeMedida(Integer.valueOf(eElement.getElementsByTagName("cUnid").item(0).getTextContent()));
                 infQuantidadeCTe.setMedida(eElement.getElementsByTagName("tpMed").item(0).getTextContent());
                 infQuantidadeCTe.setQuantidade(Double.parseDouble(eElement.getElementsByTagName("qCarga").item(0).getTextContent()));
                 infQuantidadeCTes.add(infQuantidadeCTe);
