@@ -11,7 +11,7 @@ public class Documento {
     public String numero;
     public String serie;
 
-    public Date dataEmissao;
+    public String dataEmissao;
     public String tipoServico;
     public Object chaveDocComp;
     public Object chaveDocSub;
@@ -101,7 +101,7 @@ public class Documento {
 
     public int cfop;
     public String protocoloCte;
-    public Date dataProtocoloCte;
+    public String dataProtocoloCte;
     public String modal;
     public List<ComponentesValor> componentesValor;
     public List<InfQuantidadeCTe> infQuantidadeCTe;
@@ -138,11 +138,11 @@ public class Documento {
         this.serie = serie;
     }
 
-    public Date getDataEmissao() {
+    public String getDataEmissao() {
         return dataEmissao;
     }
 
-    public void setDataEmissao(Date dataEmissao) {
+    public void setDataEmissao(String dataEmissao) {
         this.dataEmissao = dataEmissao;
     }
 
@@ -850,12 +850,11 @@ public class Documento {
         this.protocoloCte = protocoloCte;
     }
 
-    public Date getDataProtocoloCte() {
+    public String getDataProtocoloCte() {
         return dataProtocoloCte;
     }
 
-    public void setDataProtocoloCte(Date dataProtocoloCte) {
-        this.dataProtocoloCte = dataProtocoloCte;
+    public void setDataProtocoloCte(String dataProtocoloCte) {this.dataProtocoloCte = dataProtocoloCte;
     }
 
     public String getModal() {

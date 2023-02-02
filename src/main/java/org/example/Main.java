@@ -135,18 +135,23 @@ public class Main {
                 documento.setNumero(eElement.getElementsByTagName("nCT").item(temp).getTextContent());
                 documento.setSerie(eElement.getElementsByTagName("cCT").item(temp).getTextContent());
                 documento.setTipoServico(eElement.getElementsByTagName("tpServ").item(temp).getTextContent());
-                if (documento.getTipoServico().equals("0")) {documento.setTipoServico("Normal");}
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
-                documento.setDataEmissao(Date.from(Instant.parse(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent())));
-               // Instant instant = Instant.parse("yyyy-MM-dd'T'HH:mm:ss.SSSX");
-               // sdf.format(new Date(documento.setDataEmissao(Date.from(Instant.parse(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent()))))));
-//               documento.setDataEmissao(Date.from(Instant.parse(sdf.format(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent()))));
+                if (documento.getTipoServico().equals("0")) {documento.setTipoServico("NORMAL");}
+//                documento.setDataEmissao(Date.from(Instant.parse(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent())));
+//                Instant instant = Instant.parse("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+//                sdf.format(new Date(documento.setDataEmissao(Date.from(Instant.parse(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent()))))));
+//                documento.setDataEmissao(Date.from(Instant.parse(sdf.format(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent()))));
 //                documento.setDataEmissao(Date.from(Instant.ofEpochSecond(Long.parseLong(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent()))));
-                sdf.format(documento.getDataEmissao());
-                //documento.getDataEmissao(DateFormat.);
-                //instant.getLong((TemporalField) documento.getDataEmissao());
+//                documento.getDataEmissao(DateFormat.);
+//                instant.getLong((TemporalField) documento.getDataEmissao());
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                String data = eElement.getElementsByTagName("dhEmi").item(temp).getTextContent();
+                data = sdf.format(new java.util.Date());
+                System.out.println(data);
+                documento.setDataEmissao(data);
+
                 documento.setTipoCte(eElement.getElementsByTagName("tpCTe").item(temp).getTextContent());
-                if (documento.getTipoCte().equals("0")) {documento.setTipoCte("Normal");}
+                if (documento.getTipoCte().equals("0")) {documento.setTipoCte("NORMAL");}
                 documento.setIbgeInicioOperacao(Integer.parseInt(eElement.getElementsByTagName("cMunIni").item(temp).getTextContent()));
                 documento.setCidadeInicioOperacao(eElement.getElementsByTagName("xMunIni").item(temp).getTextContent());
                 documento.setUfInicioOperacao(eElement.getElementsByTagName("UFIni").item(temp).getTextContent());
@@ -157,6 +162,7 @@ public class Main {
                 documento.setModal(eElement.getElementsByTagName("modal").item(temp).getTextContent());
 
             }
+
         }
     }
 
@@ -214,8 +220,13 @@ public class Main {
                 documento.setTipoDoc("cte"); //Como vai ser sempre CTE..
                documento.setChave(eElement.getElementsByTagName("chCTe").item(temp).getTextContent());
                documento.setProtocoloCte(eElement.getElementsByTagName("nProt").item(temp).getTextContent());
-               documento.setDataProtocoloCte(Date.from(Instant.parse(eElement.getElementsByTagName("dhRecbto").item(temp).getTextContent())));
-               //sdf.format(new Date()));
+              // documento.setDataProtocoloCte(Date.from(Instant.parse(eElement.getElementsByTagName("dhRecbto").item(temp).getTextContent())));
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                String data = eElement.getElementsByTagName("dhRecbto").item(temp).getTextContent();
+                data = sdf.format(new java.util.Date());
+                System.out.println(data);
+                documento.setDataProtocoloCte(data);
             }
         }
     }
@@ -264,7 +275,7 @@ public class Main {
                 documento.setBaseCalculoIcms(Double.parseDouble(eElement.getElementsByTagName("vBC").item(temp).getTextContent()));
                 documento.setAliquotaIcms(Double.parseDouble(eElement.getElementsByTagName("pICMS").item(temp).getTextContent()));
                 documento.setTipoTributacao(eElement.getElementsByTagName("CST").item(temp).getTextContent());
-                if (documento.getTipoTributacao().equals("00")) {documento.setTipoTributacao("Normal");}
+                if (documento.getTipoTributacao().equals("00")) {documento.setTipoTributacao("NORMAL");}
                 else if (documento.getTipoTributacao().equals("40")) {documento.setTipoTributacao("Isento");}
             }
         }
