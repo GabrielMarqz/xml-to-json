@@ -25,7 +25,7 @@ public class Main {
     }
 
     private static void lerXML() throws Exception {
-        File fXmlFile = new File("C:\\CTe-41230185393783000254570010000116071000088271.xml");
+        File fXmlFile = new File("C:\\CTe-41221085393783000254570010000113651000085803.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(fXmlFile);
@@ -64,34 +64,26 @@ public class Main {
 
         System.out.println(gson4.toJson(documento.getNotasFiscais()));
 
+        System.out.println("\n####Imprimindo JSON:####\n");
+
         System.out.println(gson.toJson(documento));
 
     }
 
-    //                                 precisa ver como adicionar os outros valores
     private static void lerComponentesValor(Document doc, Documento documento) {
         System.out.println("\n####Imprimindo informações extraídas da classe ComponentesValor:####\n");
-//        NodeList vPrest = doc.getElementsByTagName("vPrest");
-//        lerElementosVPrest(vPrest, componentesValor);
-
         NodeList comp = doc.getElementsByTagName("Comp");
         lerElementosComp(comp,documento);
     }
 
     private static void lerInfQuantidadeCTe(Document doc, Documento documento) {
         System.out.println("\n####Imprimindo informações extraídas da classe InfQuantidadeCTe:####\n");
-//        NodeList infQ = doc.getElementsByTagName("infQ");
-//        lerElementosInfQ(infQ, infQuantidadeCTe);
-
         NodeList infQ = doc.getElementsByTagName("infQ");
         lerElementosInfQ(infQ, documento);
     }
 
     private static void lerNotasFiscais (Document doc, Documento documento)   {
         System.out.println("\n####Imprimindo informações extraídas da classe NotasFiscais:####\n");
-//        NodeList infNFe = doc.getElementsByTagName("infNFe");
-//        lerElementosInfNFe(infNFe, notasFiscais);
-
         NodeList infNFe = doc.getElementsByTagName("infNFe");
         lerElementosInfNFe(infNFe, documento);
     }
@@ -122,10 +114,7 @@ public class Main {
         lerElementosEnderReme(enderReme, root);
         NodeList protCTe = doc.getElementsByTagName("protCTe");
         lerElementosProtCTe(protCTe, root);
-
-
     }
-
 
     private static void lerElementosIde(NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
@@ -136,22 +125,15 @@ public class Main {
                 documento.setSerie(eElement.getElementsByTagName("cCT").item(temp).getTextContent());
                 documento.setTipoServico(eElement.getElementsByTagName("tpServ").item(temp).getTextContent());
                 if (documento.getTipoServico().equals("0")) {documento.setTipoServico("NORMAL");}
-//                documento.setDataEmissao(Date.from(Instant.parse(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent())));
-//                Instant instant = Instant.parse("yyyy-MM-dd'T'HH:mm:ss.SSSX");
-//                sdf.format(new Date(documento.setDataEmissao(Date.from(Instant.parse(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent()))))));
-//                documento.setDataEmissao(Date.from(Instant.parse(sdf.format(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent()))));
-//                documento.setDataEmissao(Date.from(Instant.ofEpochSecond(Long.parseLong(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent()))));
-//                documento.getDataEmissao(DateFormat.);
-//                instant.getLong((TemporalField) documento.getDataEmissao());
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 String data = eElement.getElementsByTagName("dhEmi").item(temp).getTextContent();
                 data = sdf.format(new java.util.Date());
-                System.out.println(data);
                 documento.setDataEmissao(data);
 
                 documento.setTipoCte(eElement.getElementsByTagName("tpCTe").item(temp).getTextContent());
                 if (documento.getTipoCte().equals("0")) {documento.setTipoCte("NORMAL");}
+
                 documento.setIbgeInicioOperacao(Integer.parseInt(eElement.getElementsByTagName("cMunIni").item(temp).getTextContent()));
                 documento.setCidadeInicioOperacao(eElement.getElementsByTagName("xMunIni").item(temp).getTextContent());
                 documento.setUfInicioOperacao(eElement.getElementsByTagName("UFIni").item(temp).getTextContent());
@@ -160,9 +142,7 @@ public class Main {
                 documento.setUfFimOperacao(eElement.getElementsByTagName("UFFim").item(temp).getTextContent());
                 documento.setCfop(Integer.parseInt(eElement.getElementsByTagName("CFOP").item(temp).getTextContent()));
                 documento.setModal(eElement.getElementsByTagName("modal").item(temp).getTextContent());
-
             }
-
         }
     }
 
@@ -220,12 +200,10 @@ public class Main {
                 documento.setTipoDoc("cte"); //Como vai ser sempre CTE..
                documento.setChave(eElement.getElementsByTagName("chCTe").item(temp).getTextContent());
                documento.setProtocoloCte(eElement.getElementsByTagName("nProt").item(temp).getTextContent());
-              // documento.setDataProtocoloCte(Date.from(Instant.parse(eElement.getElementsByTagName("dhRecbto").item(temp).getTextContent())));
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 String data = eElement.getElementsByTagName("dhRecbto").item(temp).getTextContent();
                 data = sdf.format(new java.util.Date());
-                System.out.println(data);
                 documento.setDataProtocoloCte(data);
             }
         }
@@ -364,5 +342,4 @@ public class Main {
             }
         }
     }
-
 }
