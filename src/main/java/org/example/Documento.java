@@ -8,7 +8,7 @@ import java.util.List;
 public class Documento {
     public String tipoDoc;
     public String chave;
-    public String numero;
+    public int numero;
     public String serie;
 
     public String dataEmissao;
@@ -122,11 +122,11 @@ public class Documento {
         this.chave = chave;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 

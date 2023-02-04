@@ -25,7 +25,7 @@ public class Main {
     }
 
     private static void lerXML() throws Exception {
-        File fXmlFile = new File("C:\\CTe-41221085393783000254570010000113651000085803.xml");
+        File fXmlFile = new File("C:\\CTe-41230185393783000254570010000116071000088271.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(fXmlFile);
@@ -121,8 +121,8 @@ public class Main {
             Node noIde = elementos.item(temp);
             if (noIde.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) noIde;
-                documento.setNumero(eElement.getElementsByTagName("nCT").item(temp).getTextContent());
-                documento.setSerie(eElement.getElementsByTagName("cCT").item(temp).getTextContent());
+                documento.setNumero(Integer.parseInt(eElement.getElementsByTagName("nCT").item(temp).getTextContent()));
+                documento.setSerie(eElement.getElementsByTagName("serie").item(temp).getTextContent());
                 documento.setTipoServico(eElement.getElementsByTagName("tpServ").item(temp).getTextContent());
                 if (documento.getTipoServico().equals("0")) {documento.setTipoServico("NORMAL");}
 
@@ -142,6 +142,7 @@ public class Main {
                 documento.setUfFimOperacao(eElement.getElementsByTagName("UFFim").item(temp).getTextContent());
                 documento.setCfop(Integer.parseInt(eElement.getElementsByTagName("CFOP").item(temp).getTextContent()));
                 documento.setModal(eElement.getElementsByTagName("modal").item(temp).getTextContent());
+                if (documento.getModal().equals("01")) {documento.setModal("RODOVIARIO");}
             }
         }
     }
@@ -197,7 +198,7 @@ public class Main {
             Node noProtCTe = elementos.item(temp);
             if (noProtCTe.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) noProtCTe;
-                documento.setTipoDoc("cte"); //Como vai ser sempre CTE..
+                documento.setTipoDoc("CONHECIMENTO"); //Como vai ser sempre CTE..
                documento.setChave(eElement.getElementsByTagName("chCTe").item(temp).getTextContent());
                documento.setProtocoloCte(eElement.getElementsByTagName("nProt").item(temp).getTextContent());
 
