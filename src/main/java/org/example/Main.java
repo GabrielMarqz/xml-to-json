@@ -9,12 +9,10 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.sql.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.temporal.TemporalField;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Main {
@@ -116,6 +114,7 @@ public class Main {
         lerElementosProtCTe(protCTe, root);
     }
 
+
     private static void lerElementosIde(NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
             Node noIde = elementos.item(temp);
@@ -126,10 +125,18 @@ public class Main {
                 documento.setTipoServico(eElement.getElementsByTagName("tpServ").item(temp).getTextContent());
                 if (documento.getTipoServico().equals("0")) {documento.setTipoServico("NORMAL");}
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                String data = eElement.getElementsByTagName("dhEmi").item(temp).getTextContent();
-                data = sdf.format(new java.util.Date());
-                documento.setDataEmissao(data);
+                documento.setDataEmissao(eElement.getElementsByTagName("dhEmi").item(temp).getTextContent().substring(0, 19) + ".000Z");
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+//                Calendar cal = Calendar.getInstance();
+//                String new_pat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+//                sdf.applyPattern(new_pat);
+//                String curr_date = sdf.format(documento.getDataEmissao());
+//                sdf.toPattern();
+//                documento.setDataEmissao(curr_date);
+//            String data = (2021/01/25 10:43)               sdf.format(data);
+//                sdf.format(new java.util.Date());
+//              sdf.(data);
+//                documento.setDataEmissao(curr_date);
 
                 documento.setTipoCte(eElement.getElementsByTagName("tpCTe").item(temp).getTextContent());
                 if (documento.getTipoCte().equals("0")) {documento.setTipoCte("NORMAL");}
@@ -201,11 +208,11 @@ public class Main {
                 documento.setTipoDoc("CONHECIMENTO"); //Como vai ser sempre CTE..
                documento.setChave(eElement.getElementsByTagName("chCTe").item(temp).getTextContent());
                documento.setProtocoloCte(eElement.getElementsByTagName("nProt").item(temp).getTextContent());
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                String data = eElement.getElementsByTagName("dhRecbto").item(temp).getTextContent();
-                data = sdf.format(new java.util.Date());
-                documento.setDataProtocoloCte(data);
+               documento.setDataProtocoloCte(eElement.getElementsByTagName("dhRecbto").item(temp).getTextContent().substring(0, 19) + ".000Z");
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+//                String data = eElement.getElementsByTagName("dhRecbto").item(temp).getTextContent();
+//                data = sdf.format(new java.util.Date());
+//                documento.setDataProtocoloCte(data);
             }
         }
     }
