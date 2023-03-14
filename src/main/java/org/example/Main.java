@@ -23,7 +23,7 @@ public class Main {
     }
 
     private static void lerXML() throws Exception {
-        File fXmlFile = new File("C:\\CTe-41230185393783000254570010000116071000088271.xml");
+        File fXmlFile = new File("C:\\CTe-41230385393783000254570010000117131000089375.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(fXmlFile);
@@ -257,12 +257,12 @@ public class Main {
             Node noICMS = elementos.item(temp);
             if (noICMS.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) noICMS;
+                documento.setTipoTributacao(eElement.getElementsByTagName("CST").item(temp).getTextContent());
+                if (documento.getTipoTributacao().equals("00")) {documento.setTipoTributacao("NORMAL");
                 documento.setValorIcms(Double.parseDouble(eElement.getElementsByTagName("vICMS").item(temp).getTextContent()));
                 documento.setBaseCalculoIcms(Double.parseDouble(eElement.getElementsByTagName("vBC").item(temp).getTextContent()));
-                documento.setAliquotaIcms(Double.parseDouble(eElement.getElementsByTagName("pICMS").item(temp).getTextContent()));
-                documento.setTipoTributacao(eElement.getElementsByTagName("CST").item(temp).getTextContent());
-                if (documento.getTipoTributacao().equals("00")) {documento.setTipoTributacao("NORMAL");}
-                else if (documento.getTipoTributacao().equals("40")) {documento.setTipoTributacao("Isento");}
+                documento.setAliquotaIcms(Double.parseDouble(eElement.getElementsByTagName("pICMS").item(temp).getTextContent()));}
+                else if (documento.getTipoTributacao().equals("40")) {documento.setTipoTributacao("OUTROS");}
             }
         }
     }
