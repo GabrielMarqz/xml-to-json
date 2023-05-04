@@ -5,65 +5,53 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
         lerXML();
-
     }
 
     private static void lerXML() throws Exception {
-        File fXmlFile = new File("C:\\CTe-41230385393783000254570010000117131000089375.xml");
+        File fXmlFile = new File("C:\\CTe-41230485393783000254570010000118201000090482.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(fXmlFile);
 
+        Gson gson = new Gson();
         Documento documento = new Documento();
 
-        lerElementosInfCte(doc, documento);
-        Gson gson = new Gson();
+        // Criando método para ler classe lerElementosInfCte (contem as demais informações do XML)
 
+        lerElementosInfCte(doc, documento);
         System.out.println(gson.toJson(documento));
 
         // Criando método para ler classe infquantidadeCTE
 
         InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
-
         lerInfQuantidadeCTe(doc, documento);
-        Gson gson2 = new Gson();
-
-        System.out.println(gson2.toJson(documento.getInfQuantidadeCTe()));
+        System.out.println(gson.toJson(documento.getInfQuantidadeCTe()));
 
         // Criando método para ler classe Componentesvalor
 
         ComponentesValor componentesValor = new ComponentesValor();
-
         lerComponentesValor(doc, documento);
-        Gson gson3 = new Gson();
-
-        System.out.println(gson3.toJson(documento.getComponentesValor()));
+        System.out.println(gson.toJson(documento.getComponentesValor()));
 
         // Criando método para ler classe NotasFiscais
 
         NotaFiscal notaFiscal =  new NotaFiscal();
-
         lerNotasFiscais(doc, documento);
-        Gson gson4 = new Gson();
+        System.out.println(gson.toJson(documento.getNotasFiscais()));
 
-        System.out.println(gson4.toJson(documento.getNotasFiscais()));
+        // Criando método para ler o JSON COMPLETO
 
         System.out.println("\n####Imprimindo JSON:####\n");
-
         System.out.println(gson.toJson(documento));
 
     }
@@ -87,7 +75,7 @@ public class Main {
     }
 
     private static void lerElementosInfCte(Document doc, Documento root) {
-        System.out.println("\n####Imprimindo informações extraídas da classe Documento:####\n");
+        System.out.println("\n####Imprimindo informações extraídas da classe lerElementosInfCte (contem as demais informações do XML):####\n");
         NodeList ides = doc.getElementsByTagName("ide");
         lerElementosIde(ides, root);
         NodeList emits = doc.getElementsByTagName("emit");
