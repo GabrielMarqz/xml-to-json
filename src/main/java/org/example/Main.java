@@ -25,57 +25,38 @@ public class Main {
 
         Gson gson = new Gson();
         Documento documento = new Documento();
-
-        // Criando método para ler classe lerElementosInfCte (contem as demais informações do XML)
+        InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
+        ComponentesValor componentesValor = new ComponentesValor();
+        NotaFiscal notaFiscal =  new NotaFiscal();
 
         lerElementosInfCte(doc, documento);
-        System.out.println(gson.toJson(documento));
-
-        // Criando método para ler classe infquantidadeCTE
-
-        InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
         lerInfQuantidadeCTe(doc, documento);
-        System.out.println(gson.toJson(documento.getInfQuantidadeCTe()));
-
-        // Criando método para ler classe Componentesvalor
-
-        ComponentesValor componentesValor = new ComponentesValor();
         lerComponentesValor(doc, documento);
-        System.out.println(gson.toJson(documento.getComponentesValor()));
-
-        // Criando método para ler classe NotasFiscais
-
-        NotaFiscal notaFiscal =  new NotaFiscal();
         lerNotasFiscais(doc, documento);
-        System.out.println(gson.toJson(documento.getNotasFiscais()));
 
         // Criando método para ler o JSON COMPLETO
-
         System.out.println("\n####Imprimindo JSON:####\n");
         System.out.println(gson.toJson(documento));
 
     }
+// aqui esta pegando as informações que foram estraidas e adicionando dentro dos respectivos metodos ( compnentes valor, infquantidadeCTE e notafiscais que tem array, e elementosincte que são os todas as tags, utilizamos para pegar os sem sem array)
 
     private static void lerComponentesValor(Document doc, Documento documento) {
-        System.out.println("\n####Imprimindo informações extraídas da classe ComponentesValor:####\n");
         NodeList comp = doc.getElementsByTagName("Comp");
         lerElementosComp(comp,documento);
     }
 
     private static void lerInfQuantidadeCTe(Document doc, Documento documento) {
-        System.out.println("\n####Imprimindo informações extraídas da classe InfQuantidadeCTe:####\n");
         NodeList infQ = doc.getElementsByTagName("infQ");
         lerElementosInfQ(infQ, documento);
     }
 
     private static void lerNotasFiscais (Document doc, Documento documento)   {
-        System.out.println("\n####Imprimindo informações extraídas da classe NotasFiscais:####\n");
         NodeList infNFe = doc.getElementsByTagName("infNFe");
         lerElementosInfNFe(infNFe, documento);
     }
 
     private static void lerElementosInfCte(Document doc, Documento root) {
-        System.out.println("\n####Imprimindo informações extraídas da classe lerElementosInfCte (contem as demais informações do XML):####\n");
         NodeList ides = doc.getElementsByTagName("ide");
         lerElementosIde(ides, root);
         NodeList emits = doc.getElementsByTagName("emit");
@@ -102,6 +83,9 @@ public class Main {
         lerElementosProtCTe(protCTe, root);
     }
 
+// aqui começa a extrair informações de todas as tags do xml
+
+    // eu queria renomear estes metosos para "extrairelementos"  eseparar  em uma classe "extrair" para deixar a main mais clean
 
     private static void lerElementosIde(NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
@@ -338,4 +322,5 @@ public class Main {
             }
         }
     }
+
 }
