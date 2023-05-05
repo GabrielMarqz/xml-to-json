@@ -18,7 +18,14 @@ public class Main {
     }
 
     private static void lerXML() throws Exception {
-        File fXmlFile = new File("C:\\CTe-41230485393783000254570010000118201000090482.xml");
+        File diretorioDeCTES = new File("C:\\XMLSoprano\\");
+        File[] listaDeCTES = diretorioDeCTES.listFiles();
+        String nomeDoArquivo = null;
+        for (File cteInvidual : listaDeCTES) {
+            nomeDoArquivo = cteInvidual.getName();
+        }
+
+        File fXmlFile = new File("C:\\".concat(nomeDoArquivo));
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(fXmlFile);
@@ -27,7 +34,7 @@ public class Main {
         Documento documento = new Documento();
         InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
         ComponentesValor componentesValor = new ComponentesValor();
-        NotaFiscal notaFiscal =  new NotaFiscal();
+        NotaFiscal notaFiscal = new NotaFiscal();
 
         lerElementosInfCte(doc, documento);
         lerInfQuantidadeCTe(doc, documento);
