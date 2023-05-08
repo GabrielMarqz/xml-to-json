@@ -8,9 +8,11 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Main {
 
@@ -19,6 +21,7 @@ public class Main {
     }
 
             private static void lerXML () throws Exception {
+// Descobrindo nome do arquivo e validando a quantidade de arquivos no diretório
                 File diretorioDeCTES = new File("C:\\XMLSoprano\\");
                 File[] listaDeCTES = diretorioDeCTES.listFiles();
                 String nomeDoArquivo = null;
@@ -27,14 +30,14 @@ public class Main {
                 }
 
                 if (listaDeCTES.length >= 2) {
-                    System.out.println("\nAdicione um CTE por vez na pasta XMLSOPRANO\n");
+                    System.out.println("\nERRO AO ENVIAR - Adicione um CTE por vez na pasta XMLSOPRANO.\n");
                     System.exit(0);
 
                 } else if  (nomeDoArquivo == null){
-                    System.out.println("\nA pasta XMLSOPRANO esta vazia\n");
+                    System.out.println("\nERRO AO ENVIAR - A pasta XMLSOPRANO esta vazia.\n");
                     System.exit(0);
         }
-
+//  Mostrando o caminho do arquivo
                 File fXmlFile = new File("C:\\XMLSoprano\\".concat(nomeDoArquivo));
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -51,13 +54,46 @@ public class Main {
                 lerComponentesValor(doc, documento);
                 lerNotasFiscais(doc, documento);
 
-                // Criando método para ler o JSON COMPLETO
-                System.out.println("\n####Imprimindo JSON:####\n");
-                System.out.println(gson.toJson(documento));
+// Criando método para ler o JSON COMPLETO
+//                System.out.println("\n####Imprimindo JSON:####\n");
+//                System.out.println(gson.toJson(documento));
+
+// Connectando com o servidor
+                try {
+                    String urlSoprano = "http://soprano.mosistemas.com/app/api/track/conhecimentos";
+                    String apikeySoprano = "1ee266e4-7b8b-4fa2-a01d-602b9cfd57f7";
+
+                    URL urlDoServidor = new URL(urlSoprano);
+                    HttpURLConnection conexaoComOServidor = (HttpURLConnection) urlDoServidor.openConnection();
+                    conexaoComOServidor.setRequestMethod("POST");
+                    conexaoComOServidor.setRequestProperty("Content-Type", "application/json");
+                    conexaoComOServidor.setRequestProperty("API-KEY", apikeySoprano);
+
+// Enviando o JSON
+                    conexaoComOServidor.setDoOutput(true);
+                    OutputStream os = conexaoComOServidor.getOutputStream();
+                    os.write(gson.toJson(documento).getBytes());
+                    os.flush();
+                    os.close();
+
+// Verificando o código de resposta
+                    int responseCode = conexaoComOServidor.getResponseCode();
+                    System.out.println("\nCódigo de resposta: " + responseCode);
+                    if (responseCode == 200) {
+                        System.out.println("\nCTE enviado com sucesso!");
+                    } else if (responseCode == 400) {
+                        System.out.println("\nCTE já cadastrado pela transportadora.");
+                    } else {
+                        System.out.println("\nOcorreu um erro ao enviar o CTE, contate o suporte.");
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("\nErro ao connectar com o banco de dados do cliente, contate o suporte: " + e);
+                }
+            }
 
 
-    }
-// aqui esta pegando as informações que foram estraidas e adicionando dentro dos respectivos metodos ( compnentes valor, infquantidadeCTE e notafiscais que tem array, e elementosincte que são os todas as tags, utilizamos para pegar os sem sem array)
+// Aqui esta pegando as informações que foram extraidas e adicionando dentro dos respectivos metodos ( componentes valor, infquantidadeCTE e notafiscais que tem array, e elementosincte que são todas as tags que utilizamos para pegar os sem sem array)
 
     private static void lerComponentesValor(Document doc, Documento documento) {
         NodeList comp = doc.getElementsByTagName("Comp");
@@ -101,9 +137,8 @@ public class Main {
         lerElementosProtCTe(protCTe, root);
     }
 
-// aqui começa a extrair informações de todas as tags do xml
-
-    // eu queria renomear estes metosos para "extrairelementos"  eseparar  em uma classe "extrair" para deixar a main mais clean
+// Aqui começa a extrair informações de todas as tags do xml
+// renomear estes metodos para "extrairelementos..."  e separar na classe "extrairelementos" para deixar a main mais clean
 
     private static void lerElementosIde(NodeList elementos, Documento documento) {
         for (int temp = 0; temp < elementos.getLength(); temp++) {
