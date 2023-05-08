@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Main {
 
@@ -17,33 +18,43 @@ public class Main {
         lerXML();
     }
 
-    private static void lerXML() throws Exception {
-        File diretorioDeCTES = new File("C:\\XMLSoprano\\");
-        File[] listaDeCTES = diretorioDeCTES.listFiles();
-        String nomeDoArquivo = null;
-        for (File cteInvidual : listaDeCTES) {
-            nomeDoArquivo = cteInvidual.getName();
+            private static void lerXML () throws Exception {
+                File diretorioDeCTES = new File("C:\\XMLSoprano\\");
+                File[] listaDeCTES = diretorioDeCTES.listFiles();
+                String nomeDoArquivo = null;
+                for (File cteInvidual : listaDeCTES) {
+                    nomeDoArquivo = cteInvidual.getName();
+                }
+
+                if (listaDeCTES.length >= 2) {
+                    System.out.println("\nAdicione um CTE por vez na pasta XMLSOPRANO\n");
+                    System.exit(0);
+
+                } else if  (nomeDoArquivo == null){
+                    System.out.println("\nA pasta XMLSOPRANO esta vazia\n");
+                    System.exit(0);
         }
 
-        File fXmlFile = new File("C:\\".concat(nomeDoArquivo));
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(fXmlFile);
+                File fXmlFile = new File("C:\\XMLSoprano\\".concat(nomeDoArquivo));
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                Document doc = dBuilder.parse(fXmlFile);
 
-        Gson gson = new Gson();
-        Documento documento = new Documento();
-        InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
-        ComponentesValor componentesValor = new ComponentesValor();
-        NotaFiscal notaFiscal = new NotaFiscal();
+                Gson gson = new Gson();
+                Documento documento = new Documento();
+                InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
+                ComponentesValor componentesValor = new ComponentesValor();
+                NotaFiscal notaFiscal = new NotaFiscal();
 
-        lerElementosInfCte(doc, documento);
-        lerInfQuantidadeCTe(doc, documento);
-        lerComponentesValor(doc, documento);
-        lerNotasFiscais(doc, documento);
+                lerElementosInfCte(doc, documento);
+                lerInfQuantidadeCTe(doc, documento);
+                lerComponentesValor(doc, documento);
+                lerNotasFiscais(doc, documento);
 
-        // Criando método para ler o JSON COMPLETO
-        System.out.println("\n####Imprimindo JSON:####\n");
-        System.out.println(gson.toJson(documento));
+                // Criando método para ler o JSON COMPLETO
+                System.out.println("\n####Imprimindo JSON:####\n");
+                System.out.println(gson.toJson(documento));
+
 
     }
 // aqui esta pegando as informações que foram estraidas e adicionando dentro dos respectivos metodos ( compnentes valor, infquantidadeCTE e notafiscais que tem array, e elementosincte que são os todas as tags, utilizamos para pegar os sem sem array)
