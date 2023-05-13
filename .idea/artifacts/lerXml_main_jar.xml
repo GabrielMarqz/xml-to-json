@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="lerXml.main:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/lerXml_main_jar</output-path>
+    <root id="archive" name="lerXml.main.jar">
+      <element id="module-output" name="lerXml.main" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../gradle-7.4-bin/caches/modules-2/files-2.1/jaxen/jaxen/1.1.6/3f8c36d9a0578e8e98f030c662b69888b1430ac0/jaxen-1.1.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../gradle-7.4-bin/caches/modules-2/files-2.1/org.dom4j/dom4j/2.1.0/6ad46940de4d721df3d6bbcd2977149742095445/dom4j-2.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../gradle-7.4-bin/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

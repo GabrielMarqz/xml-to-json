@@ -17,10 +17,17 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        JanelaSistema janela = new JanelaSistema();
         lerXML();
     }
+    public  String resultadoDoEnvio (){
+        return valorDoEnvio;
+    }
+    public String valorDoEnvio = "Retorno do metodo lerXML aqui" ;
 
-            private static void lerXML () throws Exception {
+            public static String lerXML () throws Exception { //transformei em public, tirei o void e coloquei string e no final return armazena
+                String stringDeRetorno = "Valor de retorno";
+
 // Descobrindo nome do arquivo e validando a quantidade de arquivos no diretório
                 File diretorioDeCTES = new File("C:\\XMLSoprano\\");
                 File[] listaDeCTES = diretorioDeCTES.listFiles();
@@ -30,11 +37,13 @@ public class Main {
                 }
 
                 if (listaDeCTES.length >= 2) {
-                    System.out.println("\nERRO AO ENVIAR - Adicione um CTE por vez na pasta XMLSOPRANO.\n");
+                    System.out.println("\nNão foi possível enviar - Adicione um CTE por vez na pasta XMLSOPRANO.\n");
+                    stringDeRetorno = ("\nNão foi possível enviar - Adicione um CTE por vez na pasta XMLSOPRANO.\n");
                     System.exit(0);
 
                 } else if  (nomeDoArquivo == null){
-                    System.out.println("\nERRO AO ENVIAR - A pasta XMLSOPRANO esta vazia.\n");
+                    System.out.println("\nNão foi possível enviar - A pasta XMLSOPRANO esta vazia.\n");
+                    stringDeRetorno = ("\nNão foi possível enviar - A pasta XMLSOPRANO esta vazia.\n");
                     System.exit(0);
         }
 //  Mostrando o caminho do arquivo
@@ -55,8 +64,8 @@ public class Main {
                 lerNotasFiscais(doc, documento);
 
 // Criando método para ler o JSON COMPLETO
-//                System.out.println("\n####Imprimindo JSON:####\n");
-//                System.out.println(gson.toJson(documento));
+                System.out.println("\n####Imprimindo JSON:####\n");
+                System.out.println(gson.toJson(documento));
 
 // Connectando com o servidor
                 try {
@@ -77,19 +86,23 @@ public class Main {
                     os.close();
 
 // Verificando o código de resposta
-                    int responseCode = conexaoComOServidor.getResponseCode();
-                    System.out.println("\nCódigo de resposta: " + responseCode);
-                    if (responseCode == 200) {
+                    int codigoResposta = conexaoComOServidor.getResponseCode();
+                    System.out.println("\nCódigo de resposta: " + codigoResposta);
+                    if (codigoResposta == 201) {
                         System.out.println("\nCTE enviado com sucesso!");
-                    } else if (responseCode == 400) {
-                        System.out.println("\nCTE já cadastrado pela transportadora.");
+                    } else if (codigoResposta == 400) {
+                        System.out.println("\nCTE incorreto ou já cadastrado pela transportadora.");
+                        stringDeRetorno = ("\nCTE incorreto ou já cadastrado pela transportadora.");
                     } else {
-                        System.out.println("\nOcorreu um erro ao enviar o CTE, contate o suporte.");
+                        System.out.println("\nNão foi possível enviar o CTE, contate o suporte.");
+                        stringDeRetorno = ("\nNão foi possível enviar o CTE, contate o suporte.");
                     }
 
                 } catch (Exception e) {
-                    System.out.println("\nErro ao connectar com o banco de dados do cliente, contate o suporte: " + e);
+                    System.out.println("\nNão foi possível connectar com o banco de dados do cliente, contate o suporte: " + e);
+                    stringDeRetorno = ("\nNão foi possível connectar com o banco de dados do cliente, contate o suporte: " + e);
                 }
+                return stringDeRetorno;
             }
 
 
