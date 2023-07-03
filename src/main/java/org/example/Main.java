@@ -17,8 +17,8 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        JanelaSistema janela = new JanelaSistema();
-        lerXML();
+        String retorno = lerXML();
+        JanelaSistema janela = new JanelaSistema(retorno);
     }
     public  String resultadoDoEnvio (){
         return valorDoEnvio;

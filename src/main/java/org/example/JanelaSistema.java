@@ -11,7 +11,7 @@ public class JanelaSistema extends JFrame {
     }*/
 
     private JLabel armazenandoTexto;
-    public JanelaSistema(){
+    public JanelaSistema(String retorno){
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("COTRAMOL");
@@ -20,11 +20,6 @@ public class JanelaSistema extends JFrame {
         armazenandoTexto = new JLabel();
         add(armazenandoTexto);
         setVisible(true);
-        atualizarTextoImpresso();
-    }
-    public void atualizarTextoImpresso(){
-        Main main = new Main();
-       String valor = main.resultadoDoEnvio();
-        armazenandoTexto.setText(valor);
+        armazenandoTexto.setText(retorno);
     }
 }
