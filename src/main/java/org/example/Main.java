@@ -17,13 +17,9 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        String retorno = lerXML();
-        JanelaSistema janela = new JanelaSistema(retorno);
+        String retornoDaJanela = lerXML();
+        JanelaSistema janela = new JanelaSistema(retornoDaJanela);
     }
-    public  String resultadoDoEnvio (){
-        return valorDoEnvio;
-    }
-    public String valorDoEnvio = "Retorno do metodo lerXML aqui" ;
 
             public static String lerXML () throws Exception { //transformei em public, tirei o void e coloquei string e no final return armazena
                 String stringDeRetorno = "Valor de retorno";
@@ -37,14 +33,14 @@ public class Main {
                 }
 
                 if (listaDeCTES.length >= 2) {
-                    System.out.println("\nNão foi possível enviar - Adicione um CTE por vez na pasta XMLSOPRANO.\n");
-                    stringDeRetorno = ("\nNão foi possível enviar - Adicione um CTE por vez na pasta XMLSOPRANO.\n");
-                    System.exit(0);
+                    System.out.println("\nNao foi possivel enviar - Adicione um CTE por vez na pasta XMLSOPRANO.\n");
+                    stringDeRetorno = ("\nNao foi possivel enviar - Adicione um CTE por vez na pasta XMLSOPRANO.\n");
+                   return stringDeRetorno;
 
                 } else if  (nomeDoArquivo == null){
-                    System.out.println("\nNão foi possível enviar - A pasta XMLSOPRANO esta vazia.\n");
-                    stringDeRetorno = ("\nNão foi possível enviar - A pasta XMLSOPRANO esta vazia.\n");
-                    System.exit(0);
+                    System.out.println("\nNao foi possivel enviar - A pasta XMLSOPRANO esta vazia.\n");
+                    stringDeRetorno = ("\nNao foi possivel enviar - A pasta XMLSOPRANO esta vazia.\n");
+                   return stringDeRetorno;
         }
 //  Mostrando o caminho do arquivo
                 File fXmlFile = new File("C:\\XMLSoprano\\".concat(nomeDoArquivo));
@@ -87,20 +83,21 @@ public class Main {
 
 // Verificando o código de resposta
                     int codigoResposta = conexaoComOServidor.getResponseCode();
-                    System.out.println("\nCódigo de resposta: " + codigoResposta);
-                    if (codigoResposta == 201) {
+                    System.out.println("\nCodigo de resposta: " + codigoResposta);
+                    if (codigoResposta >= 200 && codigoResposta <= 299)  {
                         System.out.println("\nCTE enviado com sucesso!");
-                    } else if (codigoResposta == 400) {
-                        System.out.println("\nCTE incorreto ou já cadastrado pela transportadora.");
-                        stringDeRetorno = ("\nCTE incorreto ou já cadastrado pela transportadora.");
+                        stringDeRetorno = ("\nCTE enviado com sucesso!");
+                    } else if (codigoResposta >= 400 && codigoResposta <= 499) {
+                        System.out.println("\nCTE incorreto ou ja cadastrado pela transportadora.");
+                        stringDeRetorno = ("\nCTE incorreto ou ja cadastrado pela transportadora.");
                     } else {
-                        System.out.println("\nNão foi possível enviar o CTE, contate o suporte.");
-                        stringDeRetorno = ("\nNão foi possível enviar o CTE, contate o suporte.");
+                        System.out.println("\nNao foi possivel enviar o CTE, contate o suporte.");
+                        stringDeRetorno = ("\nNao foi possivel enviar o CTE, contate o suporte.");
                     }
 
                 } catch (Exception e) {
-                    System.out.println("\nNão foi possível connectar com o banco de dados do cliente, contate o suporte: " + e);
-                    stringDeRetorno = ("\nNão foi possível connectar com o banco de dados do cliente, contate o suporte: " + e);
+                    System.out.println("\nNao foi possivel connectar com o banco de dados do cliente, contate o suporte: " + e);
+                    stringDeRetorno = ("\nNao foi possivel connectar com o banco de dados do cliente, contate o suporte: " + e);
                 }
                 return stringDeRetorno;
             }
