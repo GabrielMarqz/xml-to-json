@@ -50,9 +50,9 @@ public class Main {
 
                 Gson gson = new Gson();
                 Documento documento = new Documento();
-                InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
-                ComponentesValor componentesValor = new ComponentesValor();
-                NotaFiscal notaFiscal = new NotaFiscal();
+                ArrayInfQuantidadeCTe arrayInfQuantidadeCTe = new ArrayInfQuantidadeCTe();
+                ArrayComponentesValor arrayComponentesValor = new ArrayComponentesValor();
+                ArrayNotasFiscais arrayNotasFiscais = new ArrayNotasFiscais();
 
                 lerElementosInfCte(doc, documento);
                 lerInfQuantidadeCTe(doc, documento);
@@ -85,25 +85,25 @@ public class Main {
                     int codigoResposta = conexaoComOServidor.getResponseCode();
                     System.out.println("\nCodigo de resposta: " + codigoResposta);
                     if (codigoResposta >= 200 && codigoResposta <= 299)  {
-                        System.out.println("\nCTE enviado com sucesso!");
-                        stringDeRetorno = ("\nCTE enviado com sucesso!");
+                        System.out.println("\nCTE enviado com sucesso!" + " Cod(" + codigoResposta + ")");
+                        stringDeRetorno = ("\nCTE enviado com sucesso!" + " Cod(" + codigoResposta + ")");
                     } else if (codigoResposta >= 400 && codigoResposta <= 499) {
-                        System.out.println("\nCTE incorreto ou ja cadastrado pela transportadora.");
-                        stringDeRetorno = ("\nCTE incorreto ou ja cadastrado pela transportadora.");
+                        System.out.println("\nCTE incorreto ou ja cadastrado pela transportadora." + " Cod(" + codigoResposta + ")");
+                        stringDeRetorno = ("\nCTE incorreto ou ja cadastrado pela transportadora." + " Cod(" + codigoResposta + ")");
                     } else {
-                        System.out.println("\nNao foi possivel enviar o CTE, contate o suporte.");
-                        stringDeRetorno = ("\nNao foi possivel enviar o CTE, contate o suporte.");
+                        System.out.println("\nNao foi possivel enviar o CTE, contate o suporte." + " Cod(" + codigoResposta + ")");
+                        stringDeRetorno = ("\nNao foi possivel enviar o CTE, contate o suporte." + " Cod(" + codigoResposta + ")");
                     }
 
-                } catch (Exception e) {
-                    System.out.println("\nNao foi possivel connectar com o banco de dados do cliente, contate o suporte: " + e);
-                    stringDeRetorno = ("\nNao foi possivel connectar com o banco de dados do cliente, contate o suporte: " + e);
+                } catch (Exception erroTratado) {
+                    System.out.println("\nFalha ao enviar: " + erroTratado);
+                    stringDeRetorno = ("\nFalha ao enviar: " + erroTratado);
                 }
                 return stringDeRetorno;
             }
 
 
-// Aqui esta pegando as informações que foram extraidas e adicionando dentro dos respectivos metodos ( componentes valor, infquantidadeCTE e notafiscais que tem array, e elementosincte que são todas as tags que utilizamos para pegar os sem sem array)
+// Aqui esta pegando as informações que foram extraidas e adicionando dentro dos respectivos metodos ( componentes valor, infquantidadeCTE e notafiscais que tem array, e elementosincte que são todas as tags que utilizamos para pegar os sem array)
 
     private static void lerComponentesValor(Document doc, Documento documento) {
         NodeList comp = doc.getElementsByTagName("Comp");
@@ -263,18 +263,18 @@ public class Main {
     }
 
     private static void lerElementosComp(NodeList elementos, Documento documento) {
-        List<ComponentesValor> componentesValors = new ArrayList<>();
+        List<ArrayComponentesValor> arrayComponentesValors = new ArrayList<>();
         for (int temp = 0; temp < elementos.getLength(); temp++) {
             Node noVPrest = elementos.item(temp);
             if (noVPrest.getNodeType() == Node.ELEMENT_NODE) {
-                ComponentesValor componentesValor = new ComponentesValor();
+                ArrayComponentesValor arrayComponentesValor = new ArrayComponentesValor();
                 Element eElement = (Element) noVPrest;
-                componentesValor.setCampo(eElement.getElementsByTagName("xNome").item(0).getTextContent());
-                componentesValor.setValor(Double.parseDouble(eElement.getElementsByTagName("vComp").item(0).getTextContent()));
-                componentesValors.add(componentesValor);
+                arrayComponentesValor.setCampo(eElement.getElementsByTagName("xNome").item(0).getTextContent());
+                arrayComponentesValor.setValor(Double.parseDouble(eElement.getElementsByTagName("vComp").item(0).getTextContent()));
+                arrayComponentesValors.add(arrayComponentesValor);
             }
         }
-        documento.setComponentesValor(componentesValors);
+        documento.setComponentesValor(arrayComponentesValors);
     }
 
     private static void lerElementosVTPrest(NodeList elementos, Documento documento) {
@@ -304,35 +304,35 @@ public class Main {
 
 
     private static void lerElementosInfQ(NodeList elementos, Documento documento) {
-        List<InfQuantidadeCTe> infQuantidadeCTes = new ArrayList<>();
+        List<ArrayInfQuantidadeCTe> arrayInfQuantidadeCTes = new ArrayList<>();
         for (int temp = 0; temp < elementos.getLength(); temp++) {
             Node noInfQ = elementos.item(temp);
             if (noInfQ.getNodeType() == Node.ELEMENT_NODE) {
-                InfQuantidadeCTe infQuantidadeCTe = new InfQuantidadeCTe();
+                ArrayInfQuantidadeCTe arrayInfQuantidadeCTe = new ArrayInfQuantidadeCTe();
                 Element eElement = (Element) noInfQ;
-                infQuantidadeCTe.setCodigoUnidadeMedida(Integer.valueOf(eElement.getElementsByTagName("cUnid").item(0).getTextContent()));
-                infQuantidadeCTe.setMedida(eElement.getElementsByTagName("tpMed").item(0).getTextContent());
-                infQuantidadeCTe.setQuantidade(Double.parseDouble(eElement.getElementsByTagName("qCarga").item(0).getTextContent()));
-                infQuantidadeCTes.add(infQuantidadeCTe);
+                arrayInfQuantidadeCTe.setCodigoUnidadeMedida(Integer.valueOf(eElement.getElementsByTagName("cUnid").item(0).getTextContent()));
+                arrayInfQuantidadeCTe.setMedida(eElement.getElementsByTagName("tpMed").item(0).getTextContent());
+                arrayInfQuantidadeCTe.setQuantidade(Double.parseDouble(eElement.getElementsByTagName("qCarga").item(0).getTextContent()));
+                arrayInfQuantidadeCTes.add(arrayInfQuantidadeCTe);
 
             }
         }
-        documento.setInfQuantidadeCTe(infQuantidadeCTes);
+        documento.setInfQuantidadeCTe(arrayInfQuantidadeCTes);
     }
 
     private static void lerElementosInfNFe(NodeList elementos, Documento documento) {
-        List<NotaFiscal> notasFiscais = new ArrayList<>();
+        List<ArrayNotasFiscais> notasFiscais = new ArrayList<>();
         for (int temp = 0; temp < elementos.getLength(); temp++) {
             Node noVPrest = elementos.item(temp);
             if (noVPrest.getNodeType() == Node.ELEMENT_NODE) {
-                NotaFiscal notaFiscal = new NotaFiscal();
+                ArrayNotasFiscais arrayNotasFiscais = new ArrayNotasFiscais();
                 Element eElement = (Element) noVPrest;
 
-                notaFiscal.setChave(eElement.getElementsByTagName("chave").item(0).getTextContent());
-                notaFiscal.setNumero(Integer.parseInt(eElement.getElementsByTagName("chave").item(0).getTextContent().substring(25, 34)));
-                notaFiscal.setSerie(Integer.parseInt(eElement.getElementsByTagName("chave").item(0).getTextContent().substring(22, 25)));
-                notaFiscal.setCnpjEmissor(eElement.getElementsByTagName("chave").item(0).getTextContent().substring(6, 20));
-                notasFiscais.add(notaFiscal);
+                arrayNotasFiscais.setChave(eElement.getElementsByTagName("chave").item(0).getTextContent());
+                arrayNotasFiscais.setNumero(Integer.parseInt(eElement.getElementsByTagName("chave").item(0).getTextContent().substring(25, 34)));
+                arrayNotasFiscais.setSerie(Integer.parseInt(eElement.getElementsByTagName("chave").item(0).getTextContent().substring(22, 25)));
+                arrayNotasFiscais.setCnpjEmissor(eElement.getElementsByTagName("chave").item(0).getTextContent().substring(6, 20));
+                notasFiscais.add(arrayNotasFiscais);
             }
         }
         documento.setNotasFiscais(notasFiscais);

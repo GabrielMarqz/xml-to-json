@@ -1,8 +1,5 @@
 package org.example;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Documento {
@@ -17,7 +14,7 @@ public class Documento {
     public Object chaveDocSub;
     public int tomador;
     public String tipoCte;
-    public List<NotaFiscal> notasFiscais;
+    public List<ArrayNotasFiscais> notasFiscais;
     public String cnpjEmissor;
     public String nomeEmissor;
     public int ibgeEmissor;
@@ -103,8 +100,8 @@ public class Documento {
     public String protocoloCte;
     public String dataProtocoloCte;
     public String modal;
-    public List<ComponentesValor> componentesValor;
-    public List<InfQuantidadeCTe> infQuantidadeCTe;
+    public List<ArrayComponentesValor> arrayComponentesValor;
+    public List<ArrayInfQuantidadeCTe> arrayInfQuantidadeCTe;
 
     public String getTipoDoc() {
         return tipoDoc;
@@ -186,11 +183,11 @@ public class Documento {
         this.tipoCte = tipoCte;
     }
 
-    public List<NotaFiscal> getNotasFiscais() {
+    public List<ArrayNotasFiscais> getNotasFiscais() {
         return notasFiscais;
     }
 
-    public void setNotasFiscais(List<NotaFiscal> notasFiscais) {
+    public void setNotasFiscais(List<ArrayNotasFiscais> notasFiscais) {
         this.notasFiscais = notasFiscais;
     }
 
@@ -865,20 +862,20 @@ public class Documento {
         this.modal = modal;
     }
 
-    public List<ComponentesValor> getComponentesValor() {
-        return componentesValor;
+    public List<ArrayComponentesValor> getComponentesValor() {
+        return arrayComponentesValor;
     }
 
-    public void setComponentesValor(List<ComponentesValor> componentesValor) {
-        this.componentesValor = componentesValor;
+    public void setComponentesValor(List<ArrayComponentesValor> arrayComponentesValor) {
+        this.arrayComponentesValor = arrayComponentesValor;
     }
 
-    public List<InfQuantidadeCTe> getInfQuantidadeCTe() {
-        return infQuantidadeCTe;
+    public List<ArrayInfQuantidadeCTe> getInfQuantidadeCTe() {
+        return arrayInfQuantidadeCTe;
     }
 
-    public void setInfQuantidadeCTe(List<InfQuantidadeCTe> infQuantidadeCTe) {
-        this.infQuantidadeCTe = infQuantidadeCTe;
+    public void setInfQuantidadeCTe(List<ArrayInfQuantidadeCTe> arrayInfQuantidadeCTe) {
+        this.arrayInfQuantidadeCTe = arrayInfQuantidadeCTe;
     }
 }
 

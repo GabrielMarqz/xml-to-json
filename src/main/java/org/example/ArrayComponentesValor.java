@@ -1,11 +1,11 @@
 package org.example;
 
-public class ComponentesValor {
+public class ArrayComponentesValor {
 
-    public ComponentesValor() {
+    public ArrayComponentesValor() {
     }
 
-    public ComponentesValor(String campo, double valor) {
+    public ArrayComponentesValor(String campo, double valor) {
         this.campo = campo;
         this.valor = valor;
     }

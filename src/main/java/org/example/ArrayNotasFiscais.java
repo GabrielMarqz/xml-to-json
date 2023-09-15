@@ -1,6 +1,6 @@
 package org.example;
 
-public class NotaFiscal {
+public class ArrayNotasFiscais {
     public String getChave() {
         return chave;
     }

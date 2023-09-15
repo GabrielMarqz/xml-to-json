@@ -1,6 +1,6 @@
 package org.example;
 
-public class InfQuantidadeCTe {
+public class ArrayInfQuantidadeCTe {
     public Integer codigoUnidadeMedida;
 
     public String medida;
