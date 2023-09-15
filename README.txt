@@ -11,4 +11,8 @@ Possui verificação do código de resposta e possui tratamento de erro de conex
 "Nao foi possivel enviar o CTE, contate o suporte."
 "Falha ao enviar:"  + erroTratado
 
+Modo de funcionamento da API no computador do usuário:
+
+Criar pasta com nome XMLSoprano no disco C, o usuário deve colar o arquivo XML dentro desta pasta e abrir o executável JAVA, uma janela se abrirá com uma mensagem informando ao usuário se o envio foi bem sucedido ou se houve algum problema.
+
 
